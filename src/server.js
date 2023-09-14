@@ -1,6 +1,6 @@
 const express = require("express");
 
-const routerAuth = require("./routes/auth.route");
+const routerAuth = require("./routes/userRent.route");
 const cors = require("cors");
 
 const app = express();

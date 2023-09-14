@@ -18,3 +18,5 @@ const create = async (data) => {
   const user = userRent.create(data);
   return user;
 };
+
+module.exports = { create, login };
