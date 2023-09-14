@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const propertySchema = new mongoose.Schema({
+const loaningSchema = new mongoose.Schema({
   _id: {
-    type: Number,
+    type: String,
   },
-  space_photos: {
+  space_photos_id: {
     type: Array,
   },
-  proof_addres: {
+  proof_address: {
     type: String,
   },
   address: {
@@ -20,7 +20,7 @@ const propertySchema = new mongoose.Schema({
     type: Number,
   },
   rating: {
-    type: String,
+    type: Number,
   },
   space_measurements: {
     type: Number,
@@ -31,12 +31,10 @@ const propertySchema = new mongoose.Schema({
   card: {
     type: Number,
   },
-  amenities: {
-    type: Array,
-  },
-  add_ons: {
-    type: Array,
-  },
 });
 
-module.exports = mongoose.model("property", propertySchema, "Property");
+module.exports = mongoose.model(
+  "loaningSchema",
+  loaningSchema,
+  "LoaningSchema"
+);
