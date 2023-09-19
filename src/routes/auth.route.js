@@ -1,5 +1,5 @@
 const express = require("express");
-const { login } = require("../user/userSpace.usecases");
+const { login } = require("../usecases/user.usecase");
 
 const router = express.Router();
 

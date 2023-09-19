@@ -1,5 +1,6 @@
 const express = require("express");
 
+const routerLogin = require("./routes/auth.route")
 const routerUser = require("./routes/user.route");
 const cors = require("cors");
 
@@ -8,5 +9,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", routerUser);
+app.use("/login", routerLogin)
 
 module.exports = app;
