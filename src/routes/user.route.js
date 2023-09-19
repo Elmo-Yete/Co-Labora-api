@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { create, extract } = require("../usecases/user.usecase");
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const user = await create(req.body);
     res.status(201);
