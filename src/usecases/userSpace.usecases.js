@@ -18,3 +18,5 @@ const create = async (data) => {
   const user = userSpace.create(data);
   return user;
 };
+
+module.exports = { login, create };
