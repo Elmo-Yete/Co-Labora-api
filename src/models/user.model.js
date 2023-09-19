@@ -91,6 +91,20 @@ const userSchema = new mongoose.Schema({
   userScore: {
     type: Number,
   },
+  favorites: [
+    {
+      _id: {
+        type: String
+      },
+      propertyId: {
+        type: String
+      },
+      userId: {
+        type: String
+      }
+
+    }
+  ]
 });
 
 module.exports = mongoose.model("userRent", userRentSchema, "userRent");
