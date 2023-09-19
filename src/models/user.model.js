@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -23,39 +22,39 @@ const userSchema = new mongoose.Schema({
       userId: {
         type: String,
       },
-      typeImage:{
-        type: String
+      typeImage: {
+        type: String,
       },
       url: {
-         type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
   description: {
     type: String,
   },
-  properties:[
+  properties: [
     {
       _id: {
-        tyoe: String
+        type: String,
       },
       propertyId: {
         type: String,
-      }      
-    }
+      },
+    },
   ],
   notifications: [
     {
       _id: {
-        type: String
+        type: String,
       },
-      userId:{
-        type: String
+      userId: {
+        type: String,
       },
       notification: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
   documents: [
     {
@@ -63,30 +62,30 @@ const userSchema = new mongoose.Schema({
         type: String,
       },
       typeImage: {
-        type:String
+        type: String,
       },
-      url:{
-        type:String
-      }
+      url: {
+        type: String,
+      },
     },
   ],
   userType: {
     type: String,
   },
-  userRatings:[
+  userRatings: [
     {
       _id: {
-        type: String
+        type: String,
       },
       userId: {
-        type: String
+        type: String,
       },
       rating: {
         type: Number,
         min: 1,
-        max: 5
-      }
-    }
+        max: 5,
+      },
+    },
   ],
   userScore: {
     type: Number,
@@ -94,17 +93,16 @@ const userSchema = new mongoose.Schema({
   favorites: [
     {
       _id: {
-        type: String
+        type: String,
       },
       propertyId: {
-        type: String
+        type: String,
       },
       userId: {
-        type: String
-      }
-
-    }
-  ]
+        type: String,
+      },
+    },
+  ],
 });
 
-module.exports = mongoose.model("userRent", userRentSchema, "userRent");
+module.exports = mongoose.model("userRent", userSchema, "userRent");
