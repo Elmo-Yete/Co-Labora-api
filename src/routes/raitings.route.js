@@ -1,1 +1,4 @@
-const reservationModel = require("../models/reservation.model");
+const express = require("express");
+const router = express.Router();
+
+module.exports = router;;
