@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 
-const clientGradeSchema = new mongoose.Schema({
+const ratingsSchema = new mongoose.Schema({
   _id: {
     type: String,
   },
-  score: {
-    type: Number,
+  userId: {
+    type: String
   },
-  comment: {
+  propertyId: {
     type: String,
   },
+  rating: {
+    type: Number
+  }
 });
 
 module.exports = mongoose.model(

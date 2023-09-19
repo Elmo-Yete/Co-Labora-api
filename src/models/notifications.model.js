@@ -2,19 +2,22 @@ const mongoose = require("mongoose");
 
 const notificationsSchema = new mongoose.Schema({
   _id: {
-    type: Number,
+    type: String,
   },
   author: {
     type: String,
+    require: true
   },
-  addressee_id: {
+  propertyId: {
     type: String,
   },
-  sender_id: {
+  userReceiverId: {
     type: String,
   },
   content: {
     type: String,
+    minlength: 4,
+    maxlength: 350,
   },
 });
 module.exports = mongoose.model(
