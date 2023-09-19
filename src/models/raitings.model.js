@@ -5,18 +5,14 @@ const ratingsSchema = new mongoose.Schema({
     type: String,
   },
   userId: {
-    type: String
+    type: String,
   },
   propertyId: {
     type: String,
   },
   rating: {
-    type: Number
-  }
+    type: Number,
+  },
 });
 
-module.exports = mongoose.model(
-  "clientGrade",
-  clientGradeSchema,
-  "ClientGrade"
-);
+module.exports = mongoose.model("clientGrade", ratingsSchema, "ClientGrade");
