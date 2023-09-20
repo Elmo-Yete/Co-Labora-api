@@ -14,5 +14,8 @@ app.use("/", routerUser);
 app.use("/login", routerLogin);
 app.use("/datesNotAvailable", routerDatesNotAvailable);
 app.use("/reservation", routerReservation);
+app.use("/getUsers", routerUser);
+app.use("/deleteUser", routerUser);
+app.use("/description", routerUser);
 
 module.exports = app;
