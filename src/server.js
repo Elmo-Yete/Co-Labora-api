@@ -1,7 +1,8 @@
 const express = require("express");
 
 const routerLogin = require("./routes/auth.route");
-const routerUser = require("./routes/user.route");
+const routerUser = require("./routes/user.route");aaa
+const routerDatesNotAvailable = require("./routes/datesNotAvailable.route")
 const routerDatesNotAvailable = require("./routes/datesNotAvailable.route");
 const routerReservation = require("./routes/reservation.route");
 const cors = require("cors");
