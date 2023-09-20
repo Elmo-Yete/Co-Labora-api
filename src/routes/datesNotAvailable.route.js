@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { create, extract } = require("../usecases/reservation.usecases");
+const { create, extract } = require("../usecases/datesNotAvailable.usecases");
 
-router.post("/reservation", async (req, res) => {
+router.post("/dateNotAvailable", async (req, res) => {
   try {
     const user = await create(req.body);
     res.status(201);
@@ -19,7 +19,7 @@ router.post("/reservation", async (req, res) => {
   }
 });
 
-router.get("/reservation/", async (req, res) => {
+router.get("/datesNotAvailable/", async (req, res) => {
   try {
     const dates = await extract(req);
     res.status(200);
@@ -31,7 +31,7 @@ router.get("/reservation/", async (req, res) => {
     res.status(404);
     res.json({
       success: false,
-      message: "No se encontro la reservación",
+      message: "No se encontro las fechas",
     });
   }
 });
