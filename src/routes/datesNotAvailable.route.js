@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { create, extract } = require("../usecases/datesNotAvailable.usecases");
 
-router.post("/", async (req, res) => {
+router.post("/dateNotAvailable", async (req, res) => {
+
   try {
     const user = await create(req.body);
     res.status(201);

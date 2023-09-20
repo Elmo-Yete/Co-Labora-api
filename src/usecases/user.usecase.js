@@ -19,4 +19,18 @@ const create = async (data) => {
   return register;
 };
 
-module.exports = { create, login };
+const getUsers = async () => {
+  const user = await User.find();
+  return user;
+};
+
+const patchDescription = async (id, data) => {
+  const description = await User.findByIdAndUpdate(id, { descrpition: data });
+  return description;
+};
+
+const deleteUser = async (id) => {
+  const deleted = await User.findByIdAndDelete(id);
+};
+
+module.exports = { create, login, getUsers, patchDescription, deleteUser };
