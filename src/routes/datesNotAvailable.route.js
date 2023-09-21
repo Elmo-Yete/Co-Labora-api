@@ -3,7 +3,6 @@ const router = express.Router();
 const { create, extract } = require("../usecases/datesNotAvailable.usecases");
 
 router.post("/dateNotAvailable", async (req, res) => {
-
   try {
     const user = await create(req.body);
     res.status(201);
@@ -26,7 +25,7 @@ router.get("/datesNotAvailable/", async (req, res) => {
     res.status(200);
     res.json({
       success: true,
-      data: user,
+      data: dates,
     });
   } catch (err) {
     res.status(404);
