@@ -15,6 +15,5 @@ app.use("/login", routerLogin); // * Endpoint funcionando
 app.use("/datesNotAvailable", routerDatesNotAvailable);
 app.use("/reservation", routerReservation);
 app.use("/Users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
-
 app.use("/stripe", routerStripe);
 module.exports = app;
