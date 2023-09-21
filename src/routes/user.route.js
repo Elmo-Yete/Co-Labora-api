@@ -43,10 +43,11 @@ router.get("/getUsers", async (req, res) => {
 });
 
 router.delete("/deleteUser", async (req, res) => {
+  //! corregir de query param a path param
   try {
     console.log("esta es la request de delete", req.query);
     const users = await deleteUser(req.query.id);
-    res.status(201);
+    res.status(200);
     res.json({
       success: true,
       message: "user deleted",

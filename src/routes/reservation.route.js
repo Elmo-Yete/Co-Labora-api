@@ -25,7 +25,7 @@ router.get("/reservation/", async (req, res) => {
     res.status(200);
     res.json({
       success: true,
-      data: user,
+      data: dates,
     });
   } catch (err) {
     res.status(404);
