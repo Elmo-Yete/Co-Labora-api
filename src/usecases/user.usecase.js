@@ -24,8 +24,11 @@ const getUsers = async () => {
   return user;
 };
 
-const patchDescription = async (id, data) => {
-  const description = await User.findByIdAndUpdate(id, { descrpition: data });
+const patchDescription = async (data) => {
+  const { id, update } = data;
+  // console.log("esto es el id del usuario", id);
+  // console.log("esta es la descripcion", update);
+  const description = await User.findByIdAndUpdate(id, { description: update });
   return description;
 };
 
