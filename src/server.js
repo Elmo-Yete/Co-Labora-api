@@ -11,12 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/", routerUser);
-app.use("/login", routerLogin);
+app.use("/login", routerLogin); // * Endpoint funcionando
 app.use("/datesNotAvailable", routerDatesNotAvailable);
 app.use("/reservation", routerReservation);
-app.use("/getUsers", routerUser); // no definir la ruta por metodo del endpoint  listUsers
-app.use("/deleteUser", routerUser); // no definir la ruta por metodo del endpoint  removeUser
-app.use("/description", routerUser);
+app.use("/Users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
+
 app.use("/stripe", routerStripe);
 module.exports = app;
