@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const commentsSchema = new mongoose.Schema({
-    _id: {
-        type: String,
-      },
       propertyId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "property"
       },
       commentUserId: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: "user"
       },
       comment: {
         type: String

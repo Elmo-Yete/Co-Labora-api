@@ -1,14 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { create, extract } = require("../usecases/datesNotAvailable.usecases");
+const { create, getDates } = require("../usecases/datesNotAvailable.usecases");
+const auth = require("../middlewares/auth.middleware");
+const dates = require("../middlewares/datesNotAvailable.middleware")
 
+<<<<<<< HEAD
+router.post("/", auth, dates, async (req, res) => {
+
+=======
 router.post("/dateNotAvailable", async (req, res) => {
+>>>>>>> develop
   try {
-    const user = await create(req.body);
+    const dates = await create(req.body);
     res.status(201);
     res.json({
       success: true,
-      data: user,
+      data: dates,
     });
   } catch (err) {
     res.status(err.status || 500);
@@ -19,9 +26,9 @@ router.post("/dateNotAvailable", async (req, res) => {
   }
 });
 
-router.get("/datesNotAvailable/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const dates = await extract(req);
+    const dates = await getDates();
     res.status(200);
     res.json({
       success: true,
@@ -31,7 +38,7 @@ router.get("/datesNotAvailable/", async (req, res) => {
     res.status(404);
     res.json({
       success: false,
-      message: "No se encontro las fechas",
+      message: "Dates not found",
     });
   }
 });

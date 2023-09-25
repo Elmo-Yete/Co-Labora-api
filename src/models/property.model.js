@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
-  _id: {
-    type: String,
-  },
   name: {
     type: String,
     minlength: 3,
@@ -70,9 +67,9 @@ const propertySchema = new mongoose.Schema({
     },
   ],
   description: {
-    tyoe: String,
-    minlength: 20,
-    maxlengh: 450,
+    type: String,
+    minlength: 10,
+    maxlength: 450,
     required: true,
   },
   amenities: {

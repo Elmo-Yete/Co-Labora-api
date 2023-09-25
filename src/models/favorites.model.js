@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const favoritesSchema = new mongoose.Schema({
-    _id:{
-        type: String
-    },
     propertyId: {
         type: String,
         require: true
