@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const datesNotAvailableSchema = new mongoose. Schema({
-    _id:{
-        type: String
-    },
     propertyId: {
-        type: String,
-        require: true
+        type: Schema.Types.ObjectId,
+        ref: "property"
     },
     startDate: {
         type: String,
@@ -17,8 +15,10 @@ const datesNotAvailableSchema = new mongoose. Schema({
         require: true
     },
     datesNotAvailable: [
-        String
+        {
+            type: String
+        }
     ]
 })
 
-module.exports = mongoose.model("availability", datesNotAvailableSchema, "noAvailabilityDays")
+module.exports = mongoose.model("availability", datesNotAvailableSchema, "Availability")

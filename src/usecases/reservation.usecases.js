@@ -1,8 +1,22 @@
-const User = require("../models/reservation.model");
+const Reservation = require("../models/reservation.model");
 
-const create = async (data) => {
-  const dates = User.create(data);
-  return dates;
+const createReservation = async (data) => {
+  const reservation = Reservation.create(data);
+  return reservation;
 };
 
-module.exports = { create };
+const getReservations = async() => {
+  const reservations = await Reservation.find();
+  return reservations;
+}
+
+const getReservationsById = async(id) => {
+  const reservation = await Reservation.findById(id);
+  return reservation;
+}
+const deleteReservation = async(id) => {
+  const reservationDeleted = await Reservation.findByIdAndDelete(id)
+  return reservationDeleted
+}
+
+module.exports = { createReservation, deleteReservation, getReservations, getReservationsById};

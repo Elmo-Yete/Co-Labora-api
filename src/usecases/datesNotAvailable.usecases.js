@@ -1,8 +1,13 @@
-const User = require("../models/datesNotAvailable.model");
+const Availability = require("../models/datesNotAvailable.model");
 
 const create = async (data) => {
-  const dates = User.create(data);
+  console.log("data", data)
+  const dates = Availability.create(data);
   return dates;
 };
+const getDates = async() => {
+  const datesNotAvailable = await Availability.find();
+  return datesNotAvailable;
+}
 
-module.exports = { create };
+module.exports = { create, getDates };

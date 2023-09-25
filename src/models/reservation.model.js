@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
 
 const reservationSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-  },
   property: {
-    propetyId: {
+    propertyId: {
       type: String,
       require: true,
     },
@@ -89,10 +86,6 @@ const reservationSchema = new mongoose.Schema({
       type: String,
       require: true
     }
-  },
-  termsAndConditionsDeal: {
-    type: Boolean,
-    require: true
   }
 });
 
