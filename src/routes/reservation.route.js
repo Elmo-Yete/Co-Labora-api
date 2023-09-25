@@ -26,7 +26,11 @@ router.get("/:id", auth,  async (req, res) => {
     res.status(200);
     res.json({
       success: true,
+<<<<<<< HEAD
       data: reservation,
+=======
+      data: dates,
+>>>>>>> develop
     });
   } catch (err) {
     res.status(404);
@@ -37,6 +41,7 @@ router.get("/:id", auth,  async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.get("/", auth, async (req, res) => {
   try {
     const reservations = await getReservations();
@@ -80,3 +85,6 @@ router.delete("/:id", auth, async (req, res) => {
 })
 
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> develop

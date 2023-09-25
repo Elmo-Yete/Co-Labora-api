@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/getUsers", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await getUsers();
     res.status(201);
@@ -42,11 +42,12 @@ router.get("/getUsers", async (req, res) => {
   }
 });
 
-router.delete("/deleteUser", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    console.log("esta es la request de delete", req.query);
-    const users = await deleteUser(req.query.id);
-    res.status(201);
+    const userId = req.params.id;
+    console.log("esta es la request de delete", userId);
+    const users = await deleteUser(userId);
+    res.status(200);
     res.json({
       success: true,
       message: "user deleted",
@@ -60,7 +61,7 @@ router.delete("/deleteUser", async (req, res) => {
   }
 });
 
-router.patch("/description", async (req, res) => {
+router.patch("/", async (req, res) => {
   try {
     const user = await patchDescription(req.body);
     res.status(201);
