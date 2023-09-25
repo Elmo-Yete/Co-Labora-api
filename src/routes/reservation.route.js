@@ -5,11 +5,11 @@ const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const user = await createReservation(req.body);
+    const reservation = await createReservation(req.body);
     res.status(201);
     res.json({
       success: true,
-      data: user,
+      data: reservation,
     });
   } catch (err) {
     res.status(err.status || 500);
