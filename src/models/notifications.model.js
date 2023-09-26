@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const notificationsSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-  },
   author: {
     type: String,
     require: true

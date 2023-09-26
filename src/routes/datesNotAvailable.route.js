@@ -4,12 +4,8 @@ const { create, getDates } = require("../usecases/datesNotAvailable.usecases");
 const auth = require("../middlewares/auth.middleware");
 const dates = require("../middlewares/datesNotAvailable.middleware")
 
-<<<<<<< HEAD
 router.post("/", auth, dates, async (req, res) => {
 
-=======
-router.post("/dateNotAvailable", async (req, res) => {
->>>>>>> develop
   try {
     const dates = await create(req.body);
     res.status(201);

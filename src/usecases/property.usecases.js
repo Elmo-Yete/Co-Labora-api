@@ -1,16 +1,16 @@
 const Property= require("../models/property.model");
 
 const createProperty = async (data) => {
-  const property = Property.create(data);
+  const property = await Property.create(data);
   return property;
 };
 
-const getPropertys  = async() => {
+const getProperties  = async() => {
   const propertys = await Property.find();
   return propertys;
 }
 
-const getPropertysById = async(id) => {
+const getPropertiesById = async(id) => {
   const property = await Property.findById(id);
   return property;
 }
@@ -19,4 +19,4 @@ const deleteProperty  = async(id) => {
   return propertyDeleted
 }
 
-module.exports = { createProperty , deleteProperty , getPropertys , getPropertysById };
+module.exports = { createProperty , deleteProperty , getProperties , getPropertiesById };

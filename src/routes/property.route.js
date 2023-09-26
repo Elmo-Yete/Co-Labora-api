@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createProperty , deleteProperty , getPropertys , getPropertysById} = require("../usecases/property.usecases");
+const { createProperty , deleteProperty , getProperties , getPropertiesById} = require("../usecases/property.usecases");
 const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
@@ -22,7 +22,7 @@ router.post("/", auth, async (req, res) => {
 
 router.get("/:id", auth,  async (req, res) => {
   try {
-    const reservation = await getPropertysById(req.params.id);
+    const reservation = await getPropertiesById(req.params.id);
     res.status(200);
     res.json({
       success: true,
@@ -39,7 +39,7 @@ router.get("/:id", auth,  async (req, res) => {
 
 router.get("/", auth, async (req, res) => {
   try {
-    const reservations = await getPropertys();
+    const reservations = await getProperties();
     res.status(200);
     res.json({
       success: true,
