@@ -6,19 +6,19 @@ const dates = (req, res, next) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  const intermediateDates = []
+  const intermediateDates = [];
 
-  if(start === end){
-    console.log("deberia", start)
+  if (start === end) {
+    console.log("deberia", start);
     intermediateDates.push(start);
-  }else {
-    while( start <= end ) {
-      intermediateDates.push(new Date(start))
+  } else {
+    while (start <= end) {
+      intermediateDates.push(new Date(start));
       start.setDate(start.getDate() + 1);
     }
   }
-  req.body.datesNotAvailable = intermediateDates;
+  req.body.datesNotAvailable = intermediateDates; // agregar un caso de fallo
   next();
-}
+};
 
-module.exports = dates
+module.exports = dates;

@@ -100,6 +100,9 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  stripe_id: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("user", userSchema, "User");

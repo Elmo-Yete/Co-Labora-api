@@ -20,4 +20,5 @@ app.use("/property", routerProperty);
 
 app.use("/Users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
 app.use("/stripe", routerStripe);
+
 module.exports = app;
