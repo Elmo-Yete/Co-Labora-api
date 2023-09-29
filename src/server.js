@@ -6,12 +6,14 @@ const routerDatesNotAvailable = require("./routes/datesNotAvailable.route");
 const routerReservation = require("./routes/reservation.route");
 const routerProperty = require("./routes/property.route");
 const routerStripe = require("./routes/stripe.route");
+const routerVerify = require("./routes/otp.route");
 const cors = require("cors");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/otp", routerVerify);
 app.use("/login", routerLogin); // * Endpoint funcionando
 app.use("/datesNotAvailable", routerDatesNotAvailable);
 app.use("/reservation", routerReservation);
