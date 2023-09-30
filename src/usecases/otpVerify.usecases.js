@@ -1,4 +1,7 @@
-const Otp = require("../models/otpVerified.model");
+const jwt = require("../lib/jwt.lib");
+require("dotenv").config();
+const createError = require("http-errors");
+const bcrypt = require("bcrypt");
 const verify = async () => {
   try {
     const sgMail = require("@sendgrid/mail");
@@ -12,8 +15,10 @@ const verify = async () => {
       html: `<p>Ingresa este codigo en la pagina para verificar tu correo</p><strong>${otp}</strong>`,
     };
     await sgMail.send(msg);
-    console.log("Email sent");
-    return true;
+    console.log("Email sent", otp);
+    const hashed = await bcrypt.hash(otp, 10);
+    console.log(hashed);
+    return hashed;
   } catch (error) {
     console.log("error en el usecase", error.message);
     return false;

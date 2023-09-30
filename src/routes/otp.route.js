@@ -10,6 +10,7 @@ router.post("/", async (req, res) => {
       res.status(201);
       res.json({
         success: true,
+        data: ver,
       });
       res.end();
     } else {
