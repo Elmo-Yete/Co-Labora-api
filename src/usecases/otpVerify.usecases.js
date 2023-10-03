@@ -1,4 +1,4 @@
-const jwt = require("../lib/jwt.lib");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
@@ -17,9 +17,9 @@ const verify = async (data) => {
     };
     await sgMail.send(msg);
     console.log("Email sent", otp);
-    const hashed = await bcrypt.hash(otp, 10);
-    console.log(hashed);
-    return hashed;
+    const ver = jwt.sign({ digits: otp }, "colabora");
+    console.log("estos son los 4 dig pero con jwt", ver);
+    return ver;
   } catch (error) {
     console.log("error en el usecase", error.message);
     return false;

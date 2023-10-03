@@ -6,15 +6,15 @@ const { verify } = require("../usecases/otpVerify.usecases");
 router.post("/", async (req, res) => {
   try {
     const ver = await verify(req.body);
+    console.log("esto es lo que regresa el usecase", ver);
     if (ver) {
       res.status(201);
       res.json({
         success: true,
         data: ver,
       });
-      res.end();
     } else {
-      return;
+      console.log("error del back");
     }
   } catch (error) {
     res.status(error.status || 500);
