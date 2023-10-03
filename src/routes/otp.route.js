@@ -5,7 +5,7 @@ const { verify } = require("../usecases/otpVerify.usecases");
 
 router.post("/", async (req, res) => {
   try {
-    const ver = await verify();
+    const ver = await verify(req.body);
     if (ver) {
       res.status(201);
       res.json({

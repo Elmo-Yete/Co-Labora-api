@@ -2,13 +2,14 @@ const jwt = require("../lib/jwt.lib");
 require("dotenv").config();
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
-const verify = async () => {
+const verify = async (data) => {
+  console.log(data.email);
   try {
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     const msg = {
-      to: "mtwwehardy@gmail.com",
+      to: `${data.email}`,
       from: "colabora4@gmail.com",
       subject: "Codigo de verificacion de cuenta",
       text: "Por favor ingresa este codigo en la pagina para verificar tu cuenta",
