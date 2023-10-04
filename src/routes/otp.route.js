@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { verify } = require("../usecases/otpVerify.usecases");
+const { verify, validate } = require("../usecases/otpVerify.usecases");
 
 router.post("/", async (req, res) => {
   try {
@@ -22,6 +22,23 @@ router.post("/", async (req, res) => {
       success: false,
       message: error.message,
     });
+  }
+});
+
+router.post("/validate", async (req, res) => {
+  try {
+    const verified = await validate(req.body);
+    if (verified) {
+      res.status(200);
+      res.json({
+        success: true,
+        data: verified,
+      });
+    } else {
+      console.log("error en la ruta");
+    }
+  } catch (error) {
+    console.log("error de ruta", error.message);
   }
 });
 

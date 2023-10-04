@@ -26,4 +26,19 @@ const verify = async (data) => {
   }
 };
 
-module.exports = { verify };
+const validate = async (data) => {
+  const { code, input } = data;
+  try {
+    const decoded = jwt.verify(code, "colabora");
+    console.log("esto es lo que dio decoded", decoded);
+    if (decoded.digits === input) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("error en el uso de caso", error.message);
+  }
+};
+
+module.exports = { verify, validate };
