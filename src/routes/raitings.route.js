@@ -1,13 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const { getRating, deleteRating } = require("../usecases/ratings.usecases");
-router.get("/raitings", async (req, res) => {
+const { getRating, deleteRating, createRating } = require("../usecases/ratings.usecases");
+const auth = require("../middlewares/auth.middleware")
+
+router.post("/", auth, async (req, res) => {
   try {
-    const raiting = await getRating();
+    req.body.date = new Date()
+    const rating = await createRating(req.body)
+    res.status(201).json({
+      success: true,
+      data: rating
+    })
+  }catch(err){
+    res.status(err.status || 500);
+    res.json({
+      success: false,
+      message: err.message,
+    });
+  };
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const rating = await getRating();
     res.status(201);
     res.json({
       success: true,
-      data: raiting,
+      data: rating,
     });
   } catch (err) {
     res.status(err.status || 500);
@@ -20,7 +39,7 @@ router.get("/raitings", async (req, res) => {
 
 router.delete("/deleteRate", async (req, res) => {
   try {
-    const raiting = await getRating(req.body);
+    const rating = await deleteRatingRating(req.body);
     res.status(201);
     res.json({
       success: true,

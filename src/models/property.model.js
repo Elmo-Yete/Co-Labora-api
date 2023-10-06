@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const propertySchema = new mongoose.Schema({
   name: {
@@ -126,21 +127,9 @@ const propertySchema = new mongoose.Schema({
   },
   ratings: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
-      rating: {
-        type: Number,
-        max: 5,
-        min: 1,
-      },
-    },
+      type: Schema.Types.ObjectId,
+      ref:"ratings"
+    }
   ],
   score: {
     type: Number,

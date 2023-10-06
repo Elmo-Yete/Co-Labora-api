@@ -6,12 +6,19 @@ const createProperty = async (data) => {
 };
 
 const getProperties  = async() => {
-  const propertys = await Property.find();
-  return propertys;
+  const properties = await Property.find().populate('ratings', {
+    userId: 1,
+    rating: 1,
+  });
+  console.log("properties", properties[0].ratings)
+  return properties;
 }
 
 const getPropertiesById = async(id) => {
-  const property = await Property.findById(id);
+  const property = await Property.findById(id).populate("ratings", {
+    userId: 1,
+    rating: 1
+  });
   return property;
 }
 const deleteProperty  = async(id) => {

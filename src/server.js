@@ -6,7 +6,8 @@ const routerDatesNotAvailable = require("./routes/datesNotAvailable.route")
 const routerReservation = require("./routes/reservation.route");
 const routerProperty = require("./routes/property.route")
 const routerStripe = require("./routes/stripe.route");
-const routerNotification = require("./routes/notifications.route")
+const routerNotification = require("./routes/notifications.route");
+const routerRatings = require("./routes/raitings.route")
 const cors = require("cors");
 
 const app = express();
@@ -21,7 +22,8 @@ app.use("/deleteUser", routerUser);
 app.use("/description", routerUser);
 app.use("/notification", routerNotification);
 app.use("/property", routerProperty);
-app.use("/Users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
+app.use("/users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
 app.use("/stripe", routerStripe);
+app.use("/rating", routerRatings);
 
 module.exports = app;
