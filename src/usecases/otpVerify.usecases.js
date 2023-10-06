@@ -1,0 +1,44 @@
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const createError = require("http-errors");
+const bcrypt = require("bcrypt");
+const verify = async (data) => {
+  console.log(data.email);
+  try {
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    const msg = {
+      to: `${data.email}`,
+      from: "colabora4@gmail.com",
+      subject: "Codigo de verificacion de cuenta",
+      text: "Por favor ingresa este codigo en la pagina para verificar tu cuenta",
+      html: `<p>Ingresa este codigo en la pagina para verificar tu correo</p><strong>${otp}</strong>`,
+    };
+    await sgMail.send(msg);
+    console.log("Email sent", otp);
+    const ver = jwt.sign({ digits: otp }, "colabora");
+    console.log("estos son los 4 dig pero con jwt", ver);
+    return ver;
+  } catch (error) {
+    console.log("error en el usecase", error.message);
+    return false;
+  }
+};
+
+const validate = async (data) => {
+  const { code, input } = data;
+  try {
+    const decoded = jwt.verify(code, "colabora");
+    console.log("esto es lo que dio decoded", decoded);
+    if (decoded.digits === input) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("error en el uso de caso", error.message);
+  }
+};
+
+module.exports = { verify, validate };
