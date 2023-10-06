@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { create, getDates } = require("../usecases/datesNotAvailable.usecases");
 const auth = require("../middlewares/auth.middleware");
-const dates = require("../middlewares/datesNotAvailable.middleware")
+const dates = require("../middlewares/datesNotAvailable.middleware");
 
 router.post("/", auth, dates, async (req, res) => {
 

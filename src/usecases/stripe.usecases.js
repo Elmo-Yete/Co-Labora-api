@@ -23,4 +23,36 @@ const payment = async (data) => {
   }
 };
 
-module.exports = { payment };
+const create = async () => {
+  try {
+    const account = await stripe.accounts.create({
+      type: "custom",
+      country: "MX",
+      email: "test@gmail.com",
+      capabilities: {
+        card_payments: { requested: true },
+        transfers: { requested: true },
+      },
+    });
+    return account;
+  } catch (error) {
+    console.log("error al crear cuenta", error.message);
+  }
+};
+
+const onBoard = async () => {
+  try {
+    const link = await stripe.accountLinks.create({
+      account: "acct_1Nundh4EwXGQUYp4",
+      refresh_url: "https://example.com/reauth",
+      return_url: "https://example.com/return",
+      type: "account_onboarding",
+      collect: "eventually_due",
+    });
+    return link;
+  } catch (error) {
+    console.log("error en el onBoard", error.message);
+  }
+};
+
+module.exports = { payment, create, onBoard };
