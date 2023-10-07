@@ -40,14 +40,39 @@ const getPropertiesById = async (id) => {
     .populate("comments", {
       userId: 1,
       comment: 1,
+    })
+    .populate("reservations", {
+      _id: 1,
+      startDate: 1,
+      endDate: 1,
     });
   let score = 0;
   if (property.ratings.length > 0) {
-    score = property.ratings.reduce((acc, act) =>{
-      return acc + act.rating;
-    },0)/property.ratings.length
+    score =
+      property.ratings.reduce((acc, act) => {
+        return acc + act.rating;
+      }, 0) / property.ratings.length;
   }
   property.score = score.toFixed(1);
+  const noAvailabilityDays = property.reservations.reduce((acc, act) => {
+    console.log("act start", act.startDate)
+    let start = new Date(act.startDate);
+    console.log(("start day", start))
+    let end = new Date(act.endDate);
+    console.log("end day", end)
+    if (start === end) {
+      acc.push(start);
+    } else {
+      while (start <= end) {
+        acc.push(new Date(start));
+        start.setDate(start.getDate() + 1);
+      }
+    }
+    return acc;
+  }, []);
+  property.noAvailabilityDays = [];
+  console.log("not availability", noAvailabilityDays)
+  property.noAvailabilityDays = noAvailabilityDays;
   return property;
 };
 const deleteProperty = async (id) => {

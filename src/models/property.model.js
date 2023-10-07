@@ -141,12 +141,7 @@ const propertySchema = new mongoose.Schema({
     require: true,
   },
   noAvailabilityDays: [
-    {
-      propertyId: {
-        type: String,
-      },
-      noAbleDays: [String],
-    },
+   String
   ],
   owner: {
     type: String,
