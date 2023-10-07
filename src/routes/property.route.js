@@ -32,7 +32,7 @@ router.get("/:id", auth,  async (req, res) => {
     res.status(404);
     res.json({
       success: false,
-      message: "No se encontró la reservación",
+      message: "No se encontró la propiedad",
     });
   }
 });
@@ -71,7 +71,7 @@ router.delete("/:id", auth, async (req, res) => {
       message: response.message
     }); 
   } catch (err) {
-    res.status(400);
+    res.status(error. status || 500);
     res.json({
       success: false,
       message: err.message,

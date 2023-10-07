@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-
-const reservationSchema = new mongoose.Schema({
+const Schema =  mongoose.Schema;
+const reservationSchema = Schema({
   property: {
     propertyId: {
-      type: String,
-      require: true,
+      type: Schema.Types.ObjectId,
+      ref: 'property',
     },
     propertyName: {
       type: String,

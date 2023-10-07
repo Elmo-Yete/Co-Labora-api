@@ -57,7 +57,7 @@ const propertySchema = new mongoose.Schema({
         type: String,
       },
       imageType: {
-        type: String
+        type: String,
       },
       propertyId: {
         type: String,
@@ -128,8 +128,8 @@ const propertySchema = new mongoose.Schema({
   ratings: [
     {
       type: Schema.Types.ObjectId,
-      ref:"ratings"
-    }
+      ref: "ratings",
+    },
   ],
   score: {
     type: Number,
@@ -186,20 +186,16 @@ const propertySchema = new mongoose.Schema({
   },
   comments: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      commentUserId: {
-        type: String
-      },
-      comment: {
-        type: String
-      }
+      type: Schema.Types.ObjectId,
+      ref: "comments",
     },
   ],
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "reservation"
+    }
+  ]
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");
