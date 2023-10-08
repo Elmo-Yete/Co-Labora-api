@@ -6,6 +6,7 @@ const {
   getUsers,
   patchDescription,
   deleteUser,
+  getUserById
 } = require("../usecases/user.usecase");
 
 router.post("/", async (req, res) => {
@@ -29,6 +30,24 @@ router.get("/", async (req, res) => {
   try {
     const users = await getUsers();
     res.status(201);
+    res.json({
+      success: true,
+      data: users,
+    });
+  } catch (err) {
+    res.status(err.status || 500);
+    res.json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const users = await getUserById(id);
+    res.status(200);
     res.json({
       success: true,
       data: users,

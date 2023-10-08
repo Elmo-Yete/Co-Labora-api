@@ -6,18 +6,21 @@ const saveImages = async (body) => {
   const property = await getPropertiesById(body.propertyId);
   const user = await getUserById(body.userId);
   const images = await Images.create(body);
-  const imagesType = images.imageType;
+  const imagesType = images.imagesType;
   switch (imagesType) {
     case "profile":
       user.userImage.push(images);
       user.save();
       break;
+    case "identification":
+      user.documents.push(images);
+      user.save();
     case "document":
-      user.userImage.push(images);
+      property.documents.push(images);
       user.save();
       break;
     case "property":
-      property.documents.push(images);
+      property.images.push(images);
       property.save();
       break;
   }

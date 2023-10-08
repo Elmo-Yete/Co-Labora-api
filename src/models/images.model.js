@@ -16,6 +16,8 @@ const imagesSchema = new Schema({
   imagesType: {
     type: String,
     require: true,
-    enum: ["profile", "property", "document"]
+    enum: ["profile", "property", "document", "identification"]
   }
 })
+
+module.exports = mongoose.model("images",imagesSchema, "Images")

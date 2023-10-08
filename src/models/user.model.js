@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const userSchema = new Schema({
   name: {
     type: String,
   },
@@ -16,15 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   userImage: [
     {
-      userId: {
-        type: String,
-      },
-      typeImage: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'images'
     },
   ],
   description: {
@@ -32,12 +25,8 @@ const userSchema = new mongoose.Schema({
   },
   properties: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'property'
     },
   ],
   notifications: [
@@ -55,15 +44,8 @@ const userSchema = new mongoose.Schema({
   ],
   documents: [
     {
-      _id: {
-        type: String,
-      },
-      typeImage: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "images"
     },
   ],
   userType: {

@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const propertySchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
   name: {
     type: String,
     minlength: 3,
@@ -53,19 +57,9 @@ const propertySchema = new mongoose.Schema({
   },
   images: [
     {
-      id: {
-        type: String,
-      },
-      imageType: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
-    },
+      type: Schema.Types.ObjectId,
+      ref: 'images'
+    }
   ],
   description: {
     type: String,
@@ -99,7 +93,7 @@ const propertySchema = new mongoose.Schema({
       require: true,
     },
   },
-  addsOns: {
+  addOns: {
     screwdrivers: {
       type: Boolean,
       require: true,
@@ -143,11 +137,11 @@ const propertySchema = new mongoose.Schema({
   noAvailabilityDays: [
    String
   ],
-  owner: {
+  ownerName: {
     type: String,
-    minlength: 3,
-    maxlengh: 100,
-    require: true,
+    minlength: 5,
+    maxlength: 150,
+    require: true
   },
   measurements: {
     long: {
