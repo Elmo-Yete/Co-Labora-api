@@ -32,8 +32,13 @@ const patchDescription = async (data) => {
   return description;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findById(id)
+  return user
+}
+
 const deleteUser = async (id) => {
   const deleted = await User.findByIdAndDelete(id);
 };
 
-module.exports = { create, login, getUsers, patchDescription, deleteUser };
+module.exports = { create, login, getUsers, patchDescription, deleteUser, getUserById };

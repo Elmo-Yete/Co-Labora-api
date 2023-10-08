@@ -10,6 +10,7 @@ const routerNotification = require("./routes/notifications.route");
 const routerRatings = require("./routes/raitings.route");
 const routerVerify = require("./routes/otp.route");
 const routerComments = require("./routes/comments.route");
+const routerImages = require("./routes/images.route");
 const cors = require("cors");
 
 const app = express();
@@ -29,5 +30,5 @@ app.use("/users", routerUser); // * post.Users funcionando / delete.Users funcio
 app.use("/stripe", routerStripe);
 app.use("/rating", routerRatings);
 app.use("/comments", routerComments);
-
+app.use("/images", routerImages);
 module.exports = app;

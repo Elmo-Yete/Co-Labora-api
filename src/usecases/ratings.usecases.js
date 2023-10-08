@@ -1,5 +1,4 @@
 const Rating = require("../models/raitings.model");
-const { post } = require("../server");
 const { getPropertiesById } = require('./property.usecases.js')
 
 const createRating = async (body) => {

@@ -7,7 +7,8 @@ router.post("/", auth, async (req, res) => {
   try {
     req.body.date = new Date()
     const rating = await createRating(req.body)
-    res.status(201).json({
+    res.status(201)
+    res.json({
       success: true,
       data: rating
     })
