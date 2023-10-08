@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const propertySchema = new mongoose.Schema({
   name: {
@@ -56,7 +57,7 @@ const propertySchema = new mongoose.Schema({
         type: String,
       },
       imageType: {
-        type: String
+        type: String,
       },
       propertyId: {
         type: String,
@@ -126,20 +127,8 @@ const propertySchema = new mongoose.Schema({
   },
   ratings: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
-      rating: {
-        type: Number,
-        max: 5,
-        min: 1,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "ratings",
     },
   ],
   score: {
@@ -152,12 +141,7 @@ const propertySchema = new mongoose.Schema({
     require: true,
   },
   noAvailabilityDays: [
-    {
-      propertyId: {
-        type: String,
-      },
-      noAbleDays: [String],
-    },
+   String
   ],
   owner: {
     type: String,
@@ -197,20 +181,16 @@ const propertySchema = new mongoose.Schema({
   },
   comments: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      commentUserId: {
-        type: String
-      },
-      comment: {
-        type: String
-      }
+      type: Schema.Types.ObjectId,
+      ref: "comments",
     },
   ],
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "reservation"
+    }
+  ]
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");

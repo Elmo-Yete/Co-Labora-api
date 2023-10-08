@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createProperty , deleteProperty , getPropertys , getPropertysById} = require("../usecases/property.usecases");
+const { createProperty , deleteProperty , getProperties , getPropertiesById} = require("../usecases/property.usecases");
 const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
@@ -22,7 +22,7 @@ router.post("/", auth, async (req, res) => {
 
 router.get("/:id", auth,  async (req, res) => {
   try {
-    const reservation = await getPropertysById(req.params.id);
+    const reservation = await getPropertiesById(req.params.id);
     res.status(200);
     res.json({
       success: true,
@@ -32,14 +32,14 @@ router.get("/:id", auth,  async (req, res) => {
     res.status(404);
     res.json({
       success: false,
-      message: "No se encontró la reservación",
+      message: "No se encontró la propiedad",
     });
   }
 });
 
 router.get("/", auth, async (req, res) => {
   try {
-    const reservations = await getPropertys();
+    const reservations = await getProperties();
     res.status(200);
     res.json({
       success: true,
@@ -71,7 +71,7 @@ router.delete("/:id", auth, async (req, res) => {
       message: response.message
     }); 
   } catch (err) {
-    res.status(400);
+    res.status(error. status || 500);
     res.json({
       success: false,
       message: err.message,

@@ -6,7 +6,7 @@ const commentsSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "property"
       },
-      commentUserId: {
+      userId: {
         type: Schema.Types.ObjectId,
         ref: "user"
       },

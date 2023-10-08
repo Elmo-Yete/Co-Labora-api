@@ -1,7 +1,11 @@
 const Reservation = require("../models/reservation.model");
+const {getPropertiesById } = require("./property.usecases");
 
 const createReservation = async (data) => {
-  const reservation = Reservation.create(data);
+  const property = await getPropertiesById(data.property.propertyId);
+  const reservation = await Reservation.create(data);
+  property.reservations.push(reservation);
+  property.save();
   return reservation;
 };
 
