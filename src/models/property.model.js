@@ -17,19 +17,19 @@ const propertySchema = new mongoose.Schema({
     street: {
       type: String,
       maxlength: 200,
-      minlength: 30,
+      minlength: 5,
       require: true,
     },
     neighbor: {
       type: String,
       maxlength: 200,
-      minlength: 30,
+      minlength: 5,
       require: true,
     },
     number: {
       type: String,
       maxlength: 200,
-      minlength: 30,
+      minlength: 1,
       require: true,
     },
     zip: {
