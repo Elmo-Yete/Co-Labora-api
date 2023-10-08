@@ -12,7 +12,7 @@ const propertySchema = new mongoose.Schema({
     ownerLocationDescription: {
       type: String,
       maxlength: 150,
-      require: true,
+      require: true, //?
     },
     street: {
       type: String,
@@ -27,7 +27,7 @@ const propertySchema = new mongoose.Schema({
       require: true,
     },
     number: {
-      type: Number,
+      type: String,
       maxlength: 200,
       minlength: 30,
       require: true,
@@ -45,10 +45,12 @@ const propertySchema = new mongoose.Schema({
       require: true,
     },
     mapCoordinates: {
-      type: String,
-      maxlength: 200,
-      minlength: 30,
-      require: true,
+      lat: {
+        type: Number,
+      },
+      lng: {
+        type: Number,
+      },
     },
   },
   images: [
@@ -140,9 +142,7 @@ const propertySchema = new mongoose.Schema({
     max: 100000,
     require: true,
   },
-  noAvailabilityDays: [
-   String
-  ],
+  noAvailabilityDays: [String],
   owner: {
     type: String,
     minlength: 3,
@@ -156,7 +156,7 @@ const propertySchema = new mongoose.Schema({
       max: 100,
       require: true,
     },
-    with: {
+    broad: {
       type: Number,
       min: 1,
       max: 100,
@@ -188,9 +188,9 @@ const propertySchema = new mongoose.Schema({
   reservations: [
     {
       type: Schema.Types.ObjectId,
-      ref: "reservation"
-    }
-  ]
+      ref: "reservation",
+    },
+  ],
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");
