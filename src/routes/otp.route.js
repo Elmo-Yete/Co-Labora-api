@@ -34,9 +34,19 @@ router.post("/validate", async (req, res) => {
         data: verified,
       });
     } else {
-      console.log("error en la ruta");
+      res.status(400);
+      res.json({
+        success: false,
+        message: "Error al verificar los 4 digitos",
+      });
+      console.log("error en la ruta sin verificar");
     }
   } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: "Error al verificar los 4 digitos",
+    });
     console.log("error de ruta", error.message);
   }
 });
