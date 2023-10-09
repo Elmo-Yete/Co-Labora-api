@@ -1,7 +1,11 @@
 const Notification = require("../models/notifications.model");
+const { getUserById } = require("./user.usecase");
 
 const createNotification = async (data) =>{
-  const notification = Notification.create(data);
+  const user = await getUserById(data.userReceiverId);
+  const notification = await Notification.create(data);
+  user.notifications.push(notification),
+  user.save();
   return notification;
 };
 

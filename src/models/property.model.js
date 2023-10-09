@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const propertySchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
   name: {
     type: String,
     minlength: 3,
@@ -16,19 +20,18 @@ const propertySchema = new mongoose.Schema({
     },
     street: {
       type: String,
-      maxlength: 200,
+      maxlength: 150,
       minlength: 5,
       require: true,
     },
     neighbor: {
-      type: String,
-      maxlength: 200,
+      maxlength: 150,
       minlength: 5,
       require: true,
     },
     number: {
-      type: String,
-      maxlength: 200,
+      type: Number,
+      maxlength: 10,
       minlength: 1,
       require: true,
     },
@@ -55,18 +58,8 @@ const propertySchema = new mongoose.Schema({
   },
   images: [
     {
-      id: {
-        type: String,
-      },
-      imageType: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "images",
     },
   ],
   description: {
@@ -101,7 +94,7 @@ const propertySchema = new mongoose.Schema({
       require: true,
     },
   },
-  addsOns: {
+  addOns: {
     screwdrivers: {
       type: Boolean,
       require: true,
@@ -143,10 +136,10 @@ const propertySchema = new mongoose.Schema({
     require: true,
   },
   noAvailabilityDays: [String],
-  owner: {
+  ownerName: {
     type: String,
-    minlength: 3,
-    maxlengh: 100,
+    minlength: 5,
+    maxlength: 150,
     require: true,
   },
   measurements: {
@@ -166,7 +159,6 @@ const propertySchema = new mongoose.Schema({
       type: Number,
       min: 1,
       max: 10000,
-      require: true,
     },
   },
   workTime: {
@@ -189,6 +181,12 @@ const propertySchema = new mongoose.Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "reservation",
+    },
+  ],
+  documents: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "images",
     },
   ],
 });

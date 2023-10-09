@@ -20,20 +20,39 @@ const create = async (data) => {
 };
 
 const getUsers = async () => {
-  const user = await User.find();
+  const user = await User.find() .populate("notifications", {
+    author: 1,
+    content: 1
+  }).populate("userImage", {
+    imagesUrls: 1
+  }).populate("documents", {
+    imagesUrls: 1
+  })
   return user;
 };
 
-const patchDescription = async (data) => {
-  const { id, update } = data;
-  // console.log("esto es el id del usuario", id);
-  // console.log("esta es la descripcion", update);
-  const description = await User.findByIdAndUpdate(id, { description: update });
-  return description;
+const patchUser = async (data) => {
+  const id = data.params.id;
+  const update = data.body;
+  const email = update.email;
+  email ? delete update.email : update
+  let password = data.body.password;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  update.password = hashedPassword;
+  const user = await User.findByIdAndUpdate(id, update);
+  return user;
 };
 
 const getUserById = async (id) => {
   const user = await User.findById(id)
+  .populate("notifications", {
+    author: 1,
+    content: 1
+  }).populate("userImage", {
+    imagesUrls: 1
+  }).populate("documents", {
+    imagesUrls: 1
+  })
   return user
 }
 
@@ -41,4 +60,4 @@ const deleteUser = async (id) => {
   const deleted = await User.findByIdAndDelete(id);
 };
 
-module.exports = { create, login, getUsers, patchDescription, deleteUser, getUserById };
+module.exports = { create, login, getUsers, patchUser, deleteUser, getUserById };

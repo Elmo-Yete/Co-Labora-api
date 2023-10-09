@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< HEAD
 const {
   createProperty,
   deleteProperty,
   getProperties,
   getPropertiesById,
 } = require("../usecases/property.usecases");
+=======
+const { createProperty , deleteProperty , getProperties , getPropertiesById, patchProperty } = require("../usecases/property.usecases");
+>>>>>>> develop
 const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
@@ -37,7 +41,7 @@ router.get("/:id", auth, async (req, res) => {
     res.status(404);
     res.json({
       success: false,
-      message: "No se encontró la propiedad",
+      message: "Property has been not found",
     });
   }
 });
@@ -60,15 +64,15 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  try {
-    const reservation = await deleteProperty(req.params.id);
+  try{
+    const property = await deleteProperty (req.params.id);
     let response = {
       status: 200,
-      message: "Reservation has been deleted",
-    };
-    if (!reservation) {
-      response.status = 404;
-      response.message = "Reservation not found";
+      message: "Property has been deleted"
+    }
+    if(!property){
+      response.status = 404
+      response.message = "Property not found"
     }
     res.status(response.status);
     res.json({
@@ -81,7 +85,25 @@ router.delete("/:id", auth, async (req, res) => {
       success: false,
       message: err.message,
     });
-  }
+  };
 });
 
+router.patch("/:id", auth, async (req, res) => {
+  try{
+    const property = await patchProperty(req);
+    res.status(200);
+    res.json({
+      success: true,
+      message: "Property updated successfully",
+      data: property
+    });
+  }catch(err){
+    res.status(err. status || 500);
+    res.json({
+      success: false,
+      message: err.message
+    });
+  };
+});
 module.exports = router;
+

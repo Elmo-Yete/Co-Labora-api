@@ -3,17 +3,17 @@ const router = express.Router();
 const { createNotification, getNotifications, getNotificationsById, deleteNotification } = require("../usecases/notifications.usecases");
 const auth = require("../middlewares/auth.middleware")
 
-router.post("7", auth, async (rea, res) => {
+router.post("/", auth, async (req, res) => {
   try{
     const notification = await createNotification(req.body);
-    res.status(200);
+    res.status(201);
     res.json({
       success: true,
       data: notification
     });
   }catch(err) {
     res.status(err || 500);
-    re.json({
+    res.json({
       success: false,
       message: err.message
     });
@@ -39,11 +39,29 @@ router.get("/", auth, async(req, res) =>{
 
 router.get("/:id", auth, async (req, res) => {
   try{
-    const notification = await getNotificationsById(req.params.id);
-    res.status(200);
+    const id = req.params.id;
+    let notification = null;
+    let response = {}
+    if(id.length === 24){
+       notification = await getNotificationsById(req.params.id);
+       response = {
+         status: 200,
+         message: "Notification has been found",
+         data: notification,
+         success: true
+       }
+    }
+    if(!notification){
+      response.status = 404;
+      response.message = "Notification not found";
+      response.data = {};
+      response.success = false;
+
+    }
+    res.status(response.status);
     res.json({
-      success: true,
-      data: notification 
+      success: response.success,
+      data: response.data 
     });
   }catch (err) {
     res.status(err.status || 500);
@@ -54,7 +72,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("7:id", auth, async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try{
     const notification = await deleteNotification(req.params.id);
     let response = {
@@ -65,6 +83,11 @@ router.delete("7:id", auth, async (req, res) => {
       response.status = 404;
       response.message = "Notification not found";
     }
+    res.status(response.status);
+    res.json({
+      success: response.success,
+      message: response.message
+    });
   }catch (err) {
     res.status(400);
     res.json({

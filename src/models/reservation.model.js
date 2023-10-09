@@ -28,8 +28,8 @@ const reservationSchema = Schema({
     require: true,
   },
   lessorId: {
-    type: String,
-    require: true,
+    type: Schema.Types.ObjectId,
+    ref: 'reservation'
   },
   tenantId: {
     type: String,
