@@ -20,20 +20,20 @@ const propertySchema = new mongoose.Schema({
     },
     street: {
       type: String,
-      maxlength: 200,
-      minlength: 30,
+      maxlength: 150,
+      minlength: 5,
       require: true,
     },
     neighbor: {
       type: String,
-      maxlength: 200,
-      minlength: 30,
+      maxlength: 150,
+      minlength: 5,
       require: true,
     },
     number: {
       type: Number,
-      maxlength: 200,
-      minlength: 30,
+      maxlength: 10,
+      minlength: 1,
       require: true,
     },
     zip: {
@@ -160,7 +160,6 @@ const propertySchema = new mongoose.Schema({
       type: Number,
       min: 1,
       max: 10000,
-      require: true,
     },
   },
   workTime: {
@@ -183,6 +182,12 @@ const propertySchema = new mongoose.Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "reservation"
+    }
+  ],
+  documents: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'images'
     }
   ]
 });

@@ -31,15 +31,8 @@ const userSchema = new Schema({
   ],
   notifications: [
     {
-      _id: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
-      notification: {
-        type: String,
-      },
+    type: Schema.Types.ObjectId,
+    ref: 'notification'
     },
   ],
   documents: [
@@ -71,15 +64,8 @@ const userSchema = new Schema({
   },
   favorites: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'favorites'
     },
   ],
   stripe_id: {
@@ -88,6 +74,12 @@ const userSchema = new Schema({
   verified: {
     type: Boolean,
   },
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'reservation'
+    }
+  ]
 });
 
 module.exports = mongoose.model("user", userSchema, "User");

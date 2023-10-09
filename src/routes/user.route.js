@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const {
   create,
-  login,
   getUsers,
-  patchDescription,
+  patchUser,
   deleteUser,
   getUserById
 } = require("../usecases/user.usecase");
+const auth = require("../middlewares/auth.middleware")
 
 router.post("/", async (req, res) => {
   try {
@@ -26,10 +26,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const users = await getUsers();
-    res.status(201);
+    res.status(200);
     res.json({
       success: true,
       data: users,
@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const id = req.params.id
   try {
     const users = await getUserById(id);
@@ -61,7 +61,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     const userId = req.params.id;
     console.log("esta es la request de delete", userId);
@@ -80,13 +80,14 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.patch("/", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   try {
-    const user = await patchDescription(req.body);
-    res.status(201);
+    const user = await patchUser(req);
+    res.status(200);
     res.json({
       success: true,
-      data: user,
+      message: "User updated successfully",
+      data: user
     });
   } catch (err) {
     res.status(err.status || 500);

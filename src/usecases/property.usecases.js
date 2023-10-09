@@ -4,6 +4,8 @@ const { getUserById } = require("./user.usecase")
 
 const createProperty = async (data) => {
   const user = await getUserById(data.userId);
+  const area = data.measurements.long * data.measurements.with;
+  data.measurements.area = area;
   const property = await Property.create(data);
   user.properties.push(property)
   user.save()
@@ -56,8 +58,9 @@ const getPropertiesById = async (id) => {
     .populate("images", {
 
     });
+    console.log("property", property)
   let score = 0;
-  if (property.ratings.length > 0) {
+  if (property.ratings !== null && property.ratings.length > 0) {
     score =
       property.ratings.reduce((acc, act) => {
         return acc + act.rating;
@@ -88,9 +91,20 @@ const deleteProperty = async (id) => {
   return propertyDeleted;
 };
 
+const patchProperty = async (data) => {
+  const id = data.params.id;
+  const update = data.body;
+  const area = update.measurements.long * update.measurements.with;
+  update.measurements.area = area;
+  const property = await Property.findByIdAndUpdate(id, update, {new:true});
+  console.log("property", property)
+  return property;
+}
+
 module.exports = {
   createProperty,
   deleteProperty,
   getProperties,
   getPropertiesById,
+  patchProperty
 };
