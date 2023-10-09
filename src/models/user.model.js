@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const userSchema = new Schema({
   name: {
     type: String,
   },
@@ -16,15 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   userImage: [
     {
-      userId: {
-        type: String,
-      },
-      typeImage: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'images'
     },
   ],
   description: {
@@ -32,38 +25,20 @@ const userSchema = new mongoose.Schema({
   },
   properties: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'property'
     },
   ],
   notifications: [
     {
-      _id: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
-      notification: {
-        type: String,
-      },
+    type: Schema.Types.ObjectId,
+    ref: 'notification'
     },
   ],
   documents: [
     {
-      _id: {
-        type: String,
-      },
-      typeImage: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "images"
     },
   ],
   userType: {
@@ -89,15 +64,8 @@ const userSchema = new mongoose.Schema({
   },
   favorites: [
     {
-      _id: {
-        type: String,
-      },
-      propertyId: {
-        type: String,
-      },
-      userId: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'favorites'
     },
   ],
   stripe_id: {
@@ -106,6 +74,12 @@ const userSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
   },
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'reservation'
+    }
+  ]
 });
 
 module.exports = mongoose.model("user", userSchema, "User");

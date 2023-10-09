@@ -11,6 +11,7 @@ const routerRatings = require("./routes/raitings.route");
 const routerVerify = require("./routes/otp.route");
 const routerComments = require("./routes/comments.route");
 const routerImages = require("./routes/images.route");
+const routerFavorites = require("./routes/favorites.route")
 const cors = require("cors");
 
 const app = express();
@@ -21,8 +22,6 @@ app.use("/otp", routerVerify);
 app.use("/login", routerLogin); // * Endpoint funcionando
 app.use("/datesNotAvailable", routerDatesNotAvailable);
 app.use("/reservation", routerReservation);
-app.use("/getUsers", routerUser);
-app.use("/deleteUser", routerUser);
 app.use("/description", routerUser);
 app.use("/notification", routerNotification);
 app.use("/property", routerProperty);
@@ -31,4 +30,5 @@ app.use("/stripe", routerStripe);
 app.use("/rating", routerRatings);
 app.use("/comments", routerComments);
 app.use("/images", routerImages);
+app.use("/favorites", routerFavorites)
 module.exports = app;

@@ -5,13 +5,11 @@ const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
 const arrayUpload = upload.array("images", 10);
 
-router.post("/upload",  arrayUpload,  async (req, res) => {
+router.post("/upload", auth,  arrayUpload,  async (req, res) => {
   try{
     const files = req.files;
-    console.log("files", files)
-    const updateFilesInfo = files.map((file) => ({
-      imagesUrls: awsService.file.location,
-    }));
+    const updateFilesInfo = files.map(file => file.location
+    );
     res.status(201)
     res.json({
       success: true,

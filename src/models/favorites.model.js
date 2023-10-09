@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema
 
-const favoritesSchema = new mongoose.Schema({
+const favoritesSchema = new Schema({
     propertyId: {
-        type: String,
-        require: true
+        type: Schema.Types.ObjectId,
+        ref: 'property'
     },
     userId: {
-        type: String,
-        require: true
+        type: Schema.Types.ObjectId,
+        ref: "user"
     },
     property: {
         name: {
@@ -16,21 +17,13 @@ const favoritesSchema = new mongoose.Schema({
         image: {
             type: String
         },
-        location: {
-            neighbor: {
-                tyoe: String
-            },
-            city: {
-                type: String
-            },
-            zip: {
-                type: String
-            },
-            price: {
-                type: Number
-            }
+        rate: {
+            tyep: Number
+        },
+        price: {
+            type: Number
         }
     }
 })
 
-module.exports = mongoose("favorites", favoritesSchema, "Favorites")
+module.exports = mongoose.model("favorites", favoritesSchema, "Favorites")
