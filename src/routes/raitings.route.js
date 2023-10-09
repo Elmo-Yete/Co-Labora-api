@@ -32,16 +32,17 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(err.status || 500);
     res.json({
-      succes: false,
+      success: false,
       message: err.message,
     });
   }
 });
 
-router.delete("/deleteRate", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const rating = await deleteRatingRating(req.body);
-    res.status(201);
+    console.log("aca ando")
+    const rating = await deleteRating(req.params.id);
+    res.status(200);
     res.json({
       success: true,
       message: "rating deleted",
@@ -49,7 +50,7 @@ router.delete("/deleteRate", async (req, res) => {
   } catch (err) {
     res.status(err.status || 500);
     res.json({
-      succes: false,
+      success: false,
       message: err.message,
     });
   }
