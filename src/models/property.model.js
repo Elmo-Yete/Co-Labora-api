@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const propertySchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user",
   },
   name: {
     type: String,
@@ -15,51 +15,53 @@ const propertySchema = new mongoose.Schema({
   location: {
     ownerLocationDescription: {
       type: String,
-      maxlength: 150,
-      require: true,
+      maxlength: 100,
+      required: true, //?
     },
     street: {
       type: String,
-      maxlength: 150,
+      maxlength: 100,
       minlength: 5,
-      require: true,
+      required: true,
     },
     neighbor: {
       type: String,
-      maxlength: 150,
+      maxlength: 100,
       minlength: 5,
-      require: true,
+      required: true,
     },
     number: {
       type: Number,
       maxlength: 10,
       minlength: 1,
-      require: true,
+      required: true,
     },
     zip: {
       type: Number,
       maxlength: 6,
       minlength: 6,
-      require: true,
+      required: true,
     },
     city: {
       type: String,
       maxlength: 20,
       minlength: 3,
-      require: true,
+      required: true,
     },
     mapCoordinates: {
-      type: String,
-      maxlength: 200,
-      minlength: 30,
-      require: true,
+      lat: {
+        type: Number,
+      },
+      lng: {
+        type: Number,
+      },
     },
   },
   images: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'images'
-    }
+      ref: "images",
+    },
   ],
   description: {
     type: String,
@@ -70,53 +72,53 @@ const propertySchema = new mongoose.Schema({
   amenities: {
     wifi: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     parking: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     airConditioner: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     reception: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     petFriendly: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     cleanService: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   addOns: {
     screwdrivers: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     powerExtension: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     flexometer: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     drill: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     carpenterBrush: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     woodJigSaw: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   ratings: [
@@ -132,32 +134,33 @@ const propertySchema = new mongoose.Schema({
     type: Number,
     min: 1,
     max: 100000,
-    require: true,
+    required: true,
   },
-  noAvailabilityDays: [
-   String
-  ],
+  noAvailabilityDays: [String],
   ownerName: {
     type: String,
     minlength: 5,
     maxlength: 150,
-    require: true
+    required: true,
   },
   measurements: {
     long: {
       type: Number,
+      default: 0,
       min: 1,
       max: 100,
-      require: true,
+      required: true,
     },
-    with: {
+    broad: {
       type: Number,
+      default: 0,
       min: 1,
       max: 100,
-      require: true,
+      required: true,
     },
     area: {
       type: Number,
+      default: 0,
       min: 1,
       max: 10000,
     },
@@ -165,11 +168,11 @@ const propertySchema = new mongoose.Schema({
   workTime: {
     open: {
       type: String,
-      require: true,
+      required: true,
     },
     close: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   comments: [
@@ -181,15 +184,15 @@ const propertySchema = new mongoose.Schema({
   reservations: [
     {
       type: Schema.Types.ObjectId,
-      ref: "reservation"
-    }
+      ref: "reservation",
+    },
   ],
   documents: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'images'
-    }
-  ]
+      ref: "images",
+    },
+  ],
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");

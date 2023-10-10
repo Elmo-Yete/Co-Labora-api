@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 const ratingsSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "user"
+    ref: "user",
   },
   propertyId: {
     type: Schema.Types.ObjectId,
-    ref: "property"
+    ref: "property",
   },
-  rating: {
+  raiting: {
     type: Number,
   },
   date: {
     type: Date,
-    require: true
-}
+    require: true,
+  },
 });
 
 module.exports = mongoose.model("ratings", ratingsSchema, "Ratings");

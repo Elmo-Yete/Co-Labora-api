@@ -1,14 +1,14 @@
 const { array } = require("../middlewares/awsS3.middleware");
 const Property = require("../models/property.model");
-const { getUserById } = require("./user.usecase")
+const { getUserById } = require("./user.usecase");
 
 const createProperty = async (data) => {
   const user = await getUserById(data.userId);
-  const area = data.measurements.long * data.measurements.with;
+  const area = data.measurements.long * data.measurements.broad;
   data.measurements.area = area;
   const property = await Property.create(data);
-  user.properties.push(property)
-  user.save()
+  user.properties.push(property);
+  user.save();
   return property;
 };
 
@@ -22,9 +22,7 @@ const getProperties = async () => {
       userId: 1,
       comment: 1,
     })
-    .populate("images", {
-
-    });;
+    .populate("images", {});
   const propertiesAndScore = properties.reduce((acc, act) => {
     let score = 0;
     if (act.ratings.length > 0) {
@@ -55,10 +53,8 @@ const getPropertiesById = async (id) => {
       startDate: 1,
       endDate: 1,
     })
-    .populate("images", {
-
-    });
-    console.log("property", property)
+    .populate("images", {});
+  console.log("property", property);
   let score = 0;
   if (property.ratings !== null && property.ratings.length > 0) {
     score =
@@ -94,17 +90,17 @@ const deleteProperty = async (id) => {
 const patchProperty = async (data) => {
   const id = data.params.id;
   const update = data.body;
-  const area = update.measurements.long * update.measurements.with;
+  const area = update.measurements.long * update.measurements.broad;
   update.measurements.area = area;
-  const property = await Property.findByIdAndUpdate(id, update, {new:true});
-  console.log("property", property)
+  const property = await Property.findByIdAndUpdate(id, update, { new: true });
+  console.log("property", property);
   return property;
-}
+};
 
 module.exports = {
   createProperty,
   deleteProperty,
   getProperties,
   getPropertiesById,
-  patchProperty
+  patchProperty,
 };

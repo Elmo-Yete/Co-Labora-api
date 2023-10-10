@@ -18,7 +18,7 @@ const verify = async (data) => {
     await sgMail.send(msg);
     console.log("Email sent", otp);
     const ver = jwt.sign({ digits: otp }, "colabora");
-    console.log("estos son los 4 dig pero con jwt", ver);
+
     return ver;
   } catch (error) {
     console.log("error en el usecase", error.message);
@@ -28,9 +28,11 @@ const verify = async (data) => {
 
 const validate = async (data) => {
   const { code, input } = data;
+
   try {
     const decoded = jwt.verify(code, "colabora");
-    console.log("esto es lo que dio decoded", decoded);
+
+    console.log(typeof decoded.digits);
     if (decoded.digits === input) {
       return true;
     } else {
