@@ -11,7 +11,7 @@ const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const user = await createProperty(req.body.data);
+    const user = await createProperty(req.body);
     res.status(201);
     res.json({
       success: true,
@@ -77,7 +77,7 @@ router.delete("/:id", auth, async (req, res) => {
       message: response.message,
     });
   } catch (err) {
-    res.status(error.status || 500);
+    res.status(err.status || 500);
     res.json({
       success: false,
       message: err.message,

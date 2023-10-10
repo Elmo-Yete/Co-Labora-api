@@ -2,16 +2,16 @@ const express = require("express");
 
 const routerLogin = require("./routes/auth.route");
 const routerUser = require("./routes/user.route");
-const routerDatesNotAvailable = require("./routes/datesNotAvailable.route")
+const routerDatesNotAvailable = require("./routes/datesNotAvailable.route");
 const routerReservation = require("./routes/reservation.route");
-const routerProperty = require("./routes/property.route")
+const routerProperty = require("./routes/property.route");
 const routerStripe = require("./routes/stripe.route");
 const routerNotification = require("./routes/notifications.route");
 const routerRatings = require("./routes/raitings.route");
 const routerVerify = require("./routes/otp.route");
 const routerComments = require("./routes/comments.route");
 const routerImages = require("./routes/images.route");
-const routerFavorites = require("./routes/favorites.route")
+const routerFavorites = require("./routes/favorites.route");
 const cors = require("cors");
 
 const app = express();
@@ -27,8 +27,8 @@ app.use("/notification", routerNotification);
 app.use("/property", routerProperty);
 app.use("/users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
 app.use("/stripe", routerStripe);
-app.use("/rating", routerRatings);
+app.use("/raiting", routerRatings);
 app.use("/comments", routerComments);
 app.use("/images", routerImages);
-app.use("/favorites", routerFavorites)
+app.use("/favorites", routerFavorites);
 module.exports = app;

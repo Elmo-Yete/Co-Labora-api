@@ -15,37 +15,38 @@ const propertySchema = new mongoose.Schema({
   location: {
     ownerLocationDescription: {
       type: String,
-      maxlength: 150,
-      require: true, //?
+      maxlength: 100,
+      required: true, //?
     },
     street: {
       type: String,
-      maxlength: 150,
+      maxlength: 100,
       minlength: 5,
-      require: true,
+      required: true,
     },
     neighbor: {
-      maxlength: 150,
+      type: String,
+      maxlength: 100,
       minlength: 5,
-      require: true,
+      required: true,
     },
     number: {
       type: Number,
       maxlength: 10,
       minlength: 1,
-      require: true,
+      required: true,
     },
     zip: {
       type: Number,
       maxlength: 6,
       minlength: 6,
-      require: true,
+      required: true,
     },
     city: {
       type: String,
       maxlength: 20,
       minlength: 3,
-      require: true,
+      required: true,
     },
     mapCoordinates: {
       lat: {
@@ -71,53 +72,53 @@ const propertySchema = new mongoose.Schema({
   amenities: {
     wifi: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     parking: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     airConditioner: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     reception: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     petFriendly: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     cleanService: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   addOns: {
     screwdrivers: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     powerExtension: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     flexometer: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     drill: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     carpenterBrush: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     woodJigSaw: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   ratings: [
@@ -133,30 +134,33 @@ const propertySchema = new mongoose.Schema({
     type: Number,
     min: 1,
     max: 100000,
-    require: true,
+    required: true,
   },
   noAvailabilityDays: [String],
   ownerName: {
     type: String,
     minlength: 5,
     maxlength: 150,
-    require: true,
+    required: true,
   },
   measurements: {
     long: {
       type: Number,
+      default: 0,
       min: 1,
       max: 100,
-      require: true,
+      required: true,
     },
     broad: {
       type: Number,
+      default: 0,
       min: 1,
       max: 100,
-      require: true,
+      required: true,
     },
     area: {
       type: Number,
+      default: 0,
       min: 1,
       max: 10000,
     },
@@ -164,11 +168,11 @@ const propertySchema = new mongoose.Schema({
   workTime: {
     open: {
       type: String,
-      require: true,
+      required: true,
     },
     close: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   comments: [
