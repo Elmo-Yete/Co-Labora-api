@@ -18,7 +18,7 @@ const favoritesSchema = new Schema({
             type: String
         },
         rate: {
-            tyep: Number
+            type: Number
         },
         price: {
             type: Number

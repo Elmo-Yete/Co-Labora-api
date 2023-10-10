@@ -151,7 +151,7 @@ const propertySchema = new mongoose.Schema({
       max: 100,
       required: true,
     },
-    broad: {
+    with: {
       type: Number,
       default: 0,
       min: 1,

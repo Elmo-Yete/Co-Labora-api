@@ -14,8 +14,8 @@ const reservationSchema = Schema({
       type: Number,
       require: true
     },
-    propertyImage: {
-      type: String,
+    price: {
+      type: Number,
       require: true
     }
   },
