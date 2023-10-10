@@ -10,7 +10,7 @@ const ratingsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "property",
   },
-  raiting: {
+  rating: {
     type: Number,
   },
   date: {

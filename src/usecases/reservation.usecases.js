@@ -1,11 +1,15 @@
 const Reservation = require("../models/reservation.model");
 const {getPropertiesById } = require("./property.usecases");
+const { getUserById } = require("./user.usecase");
 
 const createReservation = async (data) => {
   const property = await getPropertiesById(data.property.propertyId);
+  const user = await getUserById(data.tenantId);
   const reservation = await Reservation.create(data);
   property.reservations.push(reservation);
   property.save();
+  user.reservations.push(reservation);
+  user.save();
   return reservation;
 };
 

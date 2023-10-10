@@ -27,7 +27,7 @@ const getUsers = async () => {
     imagesUrls: 1
   }).populate("documents", {
     imagesUrls: 1
-  })
+  });
   return user;
 };
 
@@ -52,7 +52,12 @@ const getUserById = async (id) => {
     imagesUrls: 1
   }).populate("documents", {
     imagesUrls: 1
-  })
+  }).populate("favorites", {
+    propertyId: 1,
+    property: 1
+  }).populate("reservations", {
+    
+  });
   return user
 }
 
