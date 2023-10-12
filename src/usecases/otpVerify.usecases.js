@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const createError = require("http-errors");
+const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const verify = async (data) => {
-  console.log(data.email);
+const create = async (data) => {
+  console.log(data);
   try {
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -18,8 +18,13 @@ const verify = async (data) => {
     await sgMail.send(msg);
     console.log("Email sent", otp);
     const ver = jwt.sign({ digits: otp }, "colabora");
-
-    return ver;
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    data.password = hashedPassword;
+    data.otp = ver;
+    data.verified = false;
+    const register = await User.create(data);
+    // console.log("esta es la data de register", register);
+    return register._id;
   } catch (error) {
     console.log("error en el usecase", error.message);
     return false;
@@ -27,20 +32,18 @@ const verify = async (data) => {
 };
 
 const validate = async (data) => {
-  const { code, input } = data;
-
-  try {
-    const decoded = jwt.verify(code, "colabora");
-
-    console.log(typeof decoded.digits);
-    if (decoded.digits === input) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.log("error en el uso de caso", error.message);
+  const { id, input } = data;
+  const user = await User.findById(id);
+  const decoded = jwt.verify(user.otp, "colabora");
+  if (decoded.digits === input) {
+    user.verified = true;
+    user.save();
+    return user;
+  } else {
+    user.verified = false;
+    user.save();
+    return user;
   }
 };
 
-module.exports = { verify, validate };
+module.exports = { create, validate };

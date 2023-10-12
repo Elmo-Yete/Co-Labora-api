@@ -17,7 +17,7 @@ const userSchema = new Schema({
   userImage: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'images'
+      ref: "images",
     },
   ],
   description: {
@@ -26,19 +26,19 @@ const userSchema = new Schema({
   properties: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'property'
+      ref: "property",
     },
   ],
   notifications: [
     {
-    type: Schema.Types.ObjectId,
-    ref: 'notification'
+      type: Schema.Types.ObjectId,
+      ref: "notification",
     },
   ],
   documents: [
     {
       type: Schema.Types.ObjectId,
-      ref: "images"
+      ref: "images",
     },
   ],
   userType: {
@@ -65,7 +65,7 @@ const userSchema = new Schema({
   favorites: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'favorites'
+      ref: "favorites",
     },
   ],
   stripe_id: {
@@ -74,12 +74,15 @@ const userSchema = new Schema({
   verified: {
     type: Boolean,
   },
+  otp: {
+    type: String,
+  },
   reservations: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'reservation'
-    }
-  ]
+      ref: "reservation",
+    },
+  ],
 });
 
 module.exports = mongoose.model("user", userSchema, "User");
