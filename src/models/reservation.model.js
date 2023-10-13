@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
-const Schema =  mongoose.Schema;
+const Schema = mongoose.Schema;
 const reservationSchema = Schema({
   property: {
     propertyId: {
       type: Schema.Types.ObjectId,
-      ref: 'property',
+      ref: "property",
     },
     propertyName: {
       type: String,
-      require: true
+      require: true,
     },
     score: {
       type: Number,
-      require: true
+      require: true,
     },
     propertyImage: {
       type: String,
-      require: true
-    }
+      require: true,
+    },
   },
   startDate: {
     type: String,
@@ -29,7 +29,7 @@ const reservationSchema = Schema({
   },
   lessorId: {
     type: Schema.Types.ObjectId,
-    ref: 'reservation'
+    ref: "reservation",
   },
   tenantId: {
     type: String,
@@ -84,9 +84,17 @@ const reservationSchema = Schema({
     },
     cardExpirationDate: {
       type: String,
-      require: true
-    }
-  }
+      require: true,
+    },
+  },
+  rating: {
+    type: Schema.Types.ObjectId,
+    ref: "ratings",
+  },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: "comments",
+  },
 });
 
 module.exports = mongoose.model(
