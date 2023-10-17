@@ -56,12 +56,9 @@ const propertySchema = new mongoose.Schema({
       },
     },
   },
-  images: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "images",
-    },
-  ],
+  propertyImages: [String],
+  documentsImages: [String],
+  dniImage: [String],
   description: {
     type: String,
     minlength: 10,
@@ -184,12 +181,6 @@ const propertySchema = new mongoose.Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "reservation",
-    },
-  ],
-  documents: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "images",
     },
   ],
 });

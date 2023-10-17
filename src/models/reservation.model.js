@@ -18,6 +18,10 @@ const reservationSchema = Schema({
       type: String,
       require: true,
     },
+    price: {
+      type: Number,
+      require: true,
+    },
   },
   startDate: {
     type: String,

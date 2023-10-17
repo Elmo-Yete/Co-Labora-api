@@ -56,8 +56,9 @@ const getPropertiesById = async (id) => {
       startDate: 1,
       endDate: 1,
     })
-    .populate("images", {});
-  console.log("property", property);
+    .populate("images", {
+
+    });
   let score = 0;
   if (property.ratings !== null && property.ratings.length > 0) {
     score =
@@ -74,15 +75,18 @@ const getPropertiesById = async (id) => {
       acc.push(start);
     } else {
       while (start <= end) {
-        acc.push(new Date(start));
+        acc.push(new Date(start).toString());
         start.setDate(start.getDate() + 1);
       }
     }
     return acc;
   }, []);
+  // const notRepeatedDaysSet = new Set(noAvailabilityDays);
+  // const notRepeatedDays = Array.from(notRepeatedDaysSet);
+  const notRepeatedDays = noAvailabilityDays.filter((date, ind) => noAvailabilityDays.indexOf(date) === ind)
 
   property.noAvailabilityDays = [];
-  property.noAvailabilityDays = noAvailabilityDays;
+  property.noAvailabilityDays = notRepeatedDays;
   return property;
 };
 const deleteProperty = async (id) => {
@@ -96,7 +100,6 @@ const patchProperty = async (data) => {
   const area = update.measurements.long * update.measurements.broad;
   update.measurements.area = area;
   const property = await Property.findByIdAndUpdate(id, update, { new: true });
-  console.log("property", property);
   return property;
 };
 

@@ -27,7 +27,7 @@ app.use("/notification", routerNotification);
 app.use("/property", routerProperty);
 app.use("/users", routerUser); // * post.Users funcionando / delete.Users funcionando / patch.Users funcionando
 app.use("/stripe", routerStripe);
-app.use("/raiting", routerRatings);
+app.use("/rating", routerRatings);
 app.use("/comments", routerComments);
 app.use("/images", routerImages);
 app.use("/favorites", routerFavorites);

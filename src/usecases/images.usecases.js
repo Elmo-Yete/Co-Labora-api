@@ -13,7 +13,6 @@ const saveImages = async (body) => {
       user.save();
       break;
     case "identification":
-      console.log("ahora acaaaa")
       user.documents.push(images);
       user.save();
     case "documents":
