@@ -16,7 +16,6 @@ const propertySchema = new mongoose.Schema({
     ownerLocationDescription: {
       type: String,
       maxlength: 100,
-      required: true, //?
     },
     street: {
       type: String,
@@ -57,15 +56,9 @@ const propertySchema = new mongoose.Schema({
       },
     },
   },
-  propertyImages: [
-    String
-  ],
-  documentsImages: [
-    String
-  ],
-  dniImage: [
-    String
-  ],
+  propertyImages: [String],
+  documentsImages: [String],
+  dniImage: [String],
   description: {
     type: String,
     minlength: 10,
@@ -144,28 +137,28 @@ const propertySchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 150,
-    required: true,
   },
   measurements: {
     long: {
-      type: Number,
+      type: String,
       default: 0,
       min: 1,
       max: 100,
       required: true,
     },
-    width: {
-      type: Number,
+    broad: {
+      type: String,
       default: 0,
       min: 1,
       max: 100,
       required: true,
     },
     area: {
-      type: Number,
+      type: String,
       default: 0,
       min: 1,
       max: 10000,
+      required: true,
     },
   },
   workTime: {
@@ -189,7 +182,7 @@ const propertySchema = new mongoose.Schema({
       type: Schema.Types.ObjectId,
       ref: "reservation",
     },
-  ]
+  ],
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");

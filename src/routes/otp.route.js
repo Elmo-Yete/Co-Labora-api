@@ -48,7 +48,7 @@ router.post("/validate", async (req, res) => {
       success: false,
       message: "Error al verificar los 4 digitos",
     });
-    console.log("error de ruta", error.message);
+    console.log("error de ruta", error);
   }
 });
 
