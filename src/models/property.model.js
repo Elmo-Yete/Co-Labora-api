@@ -57,11 +57,14 @@ const propertySchema = new mongoose.Schema({
       },
     },
   },
-  images: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "images",
-    },
+  propertyImages: [
+    String
+  ],
+  documentsImages: [
+    String
+  ],
+  dniImage: [
+    String
   ],
   description: {
     type: String,
@@ -151,7 +154,7 @@ const propertySchema = new mongoose.Schema({
       max: 100,
       required: true,
     },
-    with: {
+    width: {
       type: Number,
       default: 0,
       min: 1,
@@ -186,13 +189,7 @@ const propertySchema = new mongoose.Schema({
       type: Schema.Types.ObjectId,
       ref: "reservation",
     },
-  ],
-  documents: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "images",
-    },
-  ],
+  ]
 });
 
 module.exports = mongoose.model("property", propertySchema, "Property");
