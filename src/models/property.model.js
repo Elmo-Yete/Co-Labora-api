@@ -16,7 +16,6 @@ const propertySchema = new mongoose.Schema({
     ownerLocationDescription: {
       type: String,
       maxlength: 100,
-      required: true, //?
     },
     street: {
       type: String,
@@ -141,28 +140,28 @@ const propertySchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 150,
-    required: true,
   },
   measurements: {
     long: {
-      type: Number,
+      type: String,
       default: 0,
       min: 1,
       max: 100,
       required: true,
     },
     broad: {
-      type: Number,
+      type: String,
       default: 0,
       min: 1,
       max: 100,
       required: true,
     },
     area: {
-      type: Number,
+      type: String,
       default: 0,
       min: 1,
       max: 10000,
+      required: true,
     },
   },
   workTime: {

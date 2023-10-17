@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const Stripe = require("stripe");
+const stripe = new Stripe(process.env.STRIPE_KEY);
 const create = async (data) => {
   console.log(data);
   try {
@@ -23,7 +25,7 @@ const create = async (data) => {
     data.otp = ver;
     data.verified = false;
     const register = await User.create(data);
-    // console.log("esta es la data de register", register);
+
     return register._id;
   } catch (error) {
     console.log("error en el usecase", error.message);
@@ -33,9 +35,24 @@ const create = async (data) => {
 
 const validate = async (data) => {
   const { id, input } = data;
+  console.log("esto deberia de ser el input del user y su id", id, input);
   const user = await User.findById(id);
+  console.log("este es el usuario traigo", user);
   const decoded = jwt.verify(user.otp, "colabora");
+  console.log("estos son los 4 digitos decompuestos", decoded);
   if (decoded.digits === input) {
+    const account = await stripe.accounts.create({
+      type: "custom",
+      country: "MX",
+      email: user.email,
+      business_type: "individual",
+      capabilities: {
+        card_payments: { requested: true },
+        transfers: { requested: true },
+      },
+    });
+    console.log("esto es lo que me regresa stripe", account);
+    user.stripe_id = account.id;
     user.verified = true;
     user.save();
     return user;

@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { payment, create, onBoard } = require("../usecases/stripe.usecases");
+const {
+  payment,
+  create,
+  onBoard,
+  delAcc,
+} = require("../usecases/stripe.usecases");
 
 router.post("/", async (req, res) => {
   try {
@@ -39,7 +44,7 @@ router.post("/create", async (req, res) => {
 
 router.post("/onBoard", async (req, res) => {
   try {
-    const link = await onBoard();
+    const link = await onBoard(req.body.id);
     if (link) {
       res.status(200);
       res.json({
@@ -52,6 +57,22 @@ router.post("/onBoard", async (req, res) => {
     res.json({
       succes: false,
       message: ("error del back", error.message),
+    });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await delAcc(req.params.id);
+    if (deleted.deleted) {
+      res.status(200);
+      return deleted;
+    }
+  } catch (error) {
+    res.status(error.status || 500);
+    res.json({
+      succes: false,
+      message: ("error en la ruta de stripe", error.message),
     });
   }
 });

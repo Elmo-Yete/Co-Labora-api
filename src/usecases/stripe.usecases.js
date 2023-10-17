@@ -1,7 +1,6 @@
 const Stripe = require("stripe");
-
 const stripe = new Stripe(process.env.STRIPE_KEY);
-
+const User = require("../models/user.model");
 const payment = async (data) => {
   try {
     const { id, amount } = data;
@@ -29,6 +28,7 @@ const create = async () => {
       type: "custom",
       country: "MX",
       email: "test@gmail.com",
+      business_type: "individual",
       capabilities: {
         card_payments: { requested: true },
         transfers: { requested: true },
@@ -40,12 +40,15 @@ const create = async () => {
   }
 };
 
-const onBoard = async () => {
+const onBoard = async (id) => {
+  console.log("esto es el id del usuario", id);
   try {
+    const user = await User.findById(id);
+    console.log("este es el usuario que trae en base al id", user);
     const link = await stripe.accountLinks.create({
-      account: "acct_1Nundh4EwXGQUYp4",
-      refresh_url: "https://example.com/reauth",
-      return_url: "https://example.com/return",
+      account: user.stripe_id,
+      refresh_url: "http://localhost:3000/",
+      return_url: "http://localhost:3000/",
       type: "account_onboarding",
       collect: "eventually_due",
     });
@@ -55,4 +58,13 @@ const onBoard = async () => {
   }
 };
 
-module.exports = { payment, create, onBoard };
+const delAcc = async (id) => {
+  try {
+    const deleted = await stripe.accounts.del(id);
+    return deleted;
+  } catch (error) {
+    console.log("error al borrar el usuario", error.message);
+  }
+};
+
+module.exports = { payment, create, onBoard, delAcc };
