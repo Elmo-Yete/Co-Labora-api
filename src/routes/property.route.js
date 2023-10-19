@@ -10,9 +10,9 @@ const {
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
 const arrayUpload = upload.fields([
-  {name: "property-images", maxCount: 10}, 
-  {name: "property-documents", maxCount: 10},
-  {name: "property-dni", maxCount: 10}
+  { name: "property-images", maxCount: 10 },
+  { name: "property-documents", maxCount: 10 },
+  { name: "property-dni", maxCount: 10 },
 ]);
 
 router.post("/", auth, arrayUpload, async (req, res) => {
@@ -20,12 +20,9 @@ router.post("/", auth, arrayUpload, async (req, res) => {
     const filesImages = req.files["property-images"];
     const filesDocs = req.files["property-documents"];
     const filesDni = req.files["property-dni"];
-    const propertyImages = filesImages.map(file => file.location
-    );
-    const propertyDocs = filesDocs.map(file => file.location
-    );
-    const propertyDni = filesDni.map(file => file.location
-    );
+    const propertyImages = filesImages.map((file) => file.location);
+    const propertyDocs = filesDocs.map((file) => file.location);
+    const propertyDni = filesDni.map((file) => file.location);
     const propertyData = {
       imagesProperty: propertyImages,
       docsProperty: propertyDocs,
@@ -41,8 +38,8 @@ router.post("/", auth, arrayUpload, async (req, res) => {
         city: req.body.city,
         mapCoordinates: {
           lat: req.body.lat,
-          lng: req.body.lng
-        }
+          lng: req.body.lng,
+        },
       },
       description: req.body.description,
       amenities: {
@@ -51,7 +48,7 @@ router.post("/", auth, arrayUpload, async (req, res) => {
         airConditioner: req.body.airConditioner,
         reception: req.body.reception,
         petFriendly: req.body.petFriendly,
-        cleanServices: req.body.cleanServices
+        cleanServices: req.body.cleanServices,
       },
       addOns: {
         screwdrivers: req.body.screwdrivers,
@@ -59,9 +56,9 @@ router.post("/", auth, arrayUpload, async (req, res) => {
         flexometer: req.body.flexometer,
         drill: req.body.drill,
         carpenterBrush: req.body.carpenterBrush,
-        woodJigSaw: req.body.woodJigSaw
+        woodJigSaw: req.body.woodJigSaw,
       },
-      price: req.body.price, 
+      price: req.body.price,
       ownerName: req.body.ownerName,
       measurements: {
         long: req.body.long,
@@ -69,10 +66,10 @@ router.post("/", auth, arrayUpload, async (req, res) => {
       },
       workTime: {
         open: req.body.open,
-        close: req.body.close  
-      }
-    }
-    console.log("property", propertyData)
+        close: req.body.close,
+      },
+    };
+    console.log("property", propertyData);
     const user = await createProperty(propertyData);
     res.status(201);
     res.json({
@@ -88,7 +85,7 @@ router.post("/", auth, arrayUpload, async (req, res) => {
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const reservation = await getPropertiesById(req.params.id);
     res.status(200);

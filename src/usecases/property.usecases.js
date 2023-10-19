@@ -25,7 +25,7 @@ const getProperties = async () => {
       userId: 1,
       comment: 1,
     })
-    .populate("images", {});
+    .populate("propertyImages", {});
   const propertiesAndScore = properties.reduce((acc, act) => {
     let score = 0;
     if (act.ratings.length > 0) {
@@ -56,9 +56,7 @@ const getPropertiesById = async (id) => {
       startDate: 1,
       endDate: 1,
     })
-    .populate("images", {
-
-    });
+    .populate("propertyImages", {});
   let score = 0;
   if (property.ratings !== null && property.ratings.length > 0) {
     score =
@@ -83,7 +81,9 @@ const getPropertiesById = async (id) => {
   }, []);
   // const notRepeatedDaysSet = new Set(noAvailabilityDays);
   // const notRepeatedDays = Array.from(notRepeatedDaysSet);
-  const notRepeatedDays = noAvailabilityDays.filter((date, ind) => noAvailabilityDays.indexOf(date) === ind)
+  const notRepeatedDays = noAvailabilityDays.filter(
+    (date, ind) => noAvailabilityDays.indexOf(date) === ind
+  );
 
   property.noAvailabilityDays = [];
   property.noAvailabilityDays = notRepeatedDays;
