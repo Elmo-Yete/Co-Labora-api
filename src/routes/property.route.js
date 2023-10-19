@@ -10,22 +10,24 @@ const {
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
 const arrayUpload = upload.fields([
-  {name: "property-images", maxCount: 10}, 
-  {name: "property-documents", maxCount: 10},
-  {name: "property-dni", maxCount: 10}
+  {name: "propertyImages", maxCount: 10}, 
+  {name: "propertyDocuments", maxCount: 10},
+  {name: "propertyDni", maxCount: 10}
 ]);
 
 router.post("/", auth, arrayUpload, async (req, res) => {
   try {
+    console.log("request", req.files["propertyImages"])
     const filesImages = req.files["property-images"];
-    const filesDocs = req.files["property-documents"];
-    const filesDni = req.files["property-dni"];
+    const filesDocs = req.files["propertyDocuments"];
+    const filesDni = req.files["propertyDni"];
     const propertyImages = filesImages.map(file => file.location
     );
     const propertyDocs = filesDocs.map(file => file.location
     );
     const propertyDni = filesDni.map(file => file.location
     );
+    console.log("property images", propertyImages)
     const propertyData = {
       imagesProperty: propertyImages,
       docsProperty: propertyDocs,
