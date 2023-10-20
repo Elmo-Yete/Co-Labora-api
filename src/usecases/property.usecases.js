@@ -3,6 +3,7 @@ const Property = require("../models/property.model");
 const { getUserById } = require("./user.usecase");
 
 const createProperty = async (data) => {
+  console.log("data", data)
   const user = await getUserById(data.userId);
   console.log("este es el usuario que baja", user);
   const area =

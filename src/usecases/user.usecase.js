@@ -44,6 +44,7 @@ const patchUser = async (data) => {
 };
 
 const getUserById = async (id) => {
+  console.log("id", id)
   const user = await User.findById(id)
   .populate("notifications", {
     author: 1,
@@ -58,6 +59,7 @@ const getUserById = async (id) => {
   }).populate("reservations", {
     
   });
+  console.log("user", user)
   return user
 }
 
