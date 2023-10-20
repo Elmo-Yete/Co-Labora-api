@@ -4,8 +4,9 @@ const { getUserById } = require("./user.usecase");
 
 const createProperty = async (data) => {
   const user = await getUserById(data.userId);
-  const area = data.measurements.long * data.measurements.broad;
+  const area = parseInt(data.measurements.long) * parseInt(data.measurements.width);
   data.measurements.area = area;
+  console.log("data", data)
   const property = await Property.create(data);
   user.properties.push(property);
   user.save();
