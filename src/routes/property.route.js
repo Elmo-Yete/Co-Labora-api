@@ -14,7 +14,6 @@ const arrayUpload = upload.any([
   { name: "propertyDocuments", maxCount: 10 },
   { name: "propertyDni", maxCount: 10 },
 ]);
-const test = upload.any("propertyDni");
 
 router.post("/", auth, arrayUpload, async (req, res) => {
   try {

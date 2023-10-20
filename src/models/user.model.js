@@ -17,7 +17,7 @@ const userSchema = new Schema({
   userImage: [
     {
       type: Schema.Types.ObjectId,
-      ref: "propertyImages",
+      ref: "images",
     },
   ],
   description: {
@@ -38,7 +38,7 @@ const userSchema = new Schema({
   documents: [
     {
       type: Schema.Types.ObjectId,
-      ref: "propertyImages",
+      ref: "images",
     },
   ],
   userType: {
