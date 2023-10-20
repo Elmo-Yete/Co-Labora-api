@@ -9,7 +9,6 @@ const propertySchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 3,
-    maxlength: 30,
     required: true,
   },
   location: {
@@ -54,7 +53,7 @@ const propertySchema = new mongoose.Schema({
   description: {
     type: String,
     minlength: 10,
-    maxlength: 450,
+    maxlength: 700,
     required: true,
   },
   amenities: {
