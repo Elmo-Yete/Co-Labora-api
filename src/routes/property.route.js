@@ -63,7 +63,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const reservations = await getProperties();
     res.status(200);
