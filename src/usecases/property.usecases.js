@@ -4,7 +4,9 @@ const { getUserById } = require("./user.usecase");
 
 const createProperty = async (data) => {
   const user = await getUserById(data.userId);
-  const area = parseInt(data.measurements.long) * parseInt(data.measurements.width);
+  console.log("este es el usuario que baja", user);
+  const area =
+    parseInt(data.measurements.long) * parseInt(data.measurements.width);
   data.measurements.area = area;
   const property = await Property.create(data);
   console.log("property", property)
@@ -23,7 +25,7 @@ const getProperties = async () => {
       userId: 1,
       comment: 1,
     })
-    .populate("images", {});
+    .populate("propertyImages", {});
   const propertiesAndScore = properties.reduce((acc, act) => {
     let score = 0;
     if (act.ratings.length > 0) {
@@ -54,9 +56,7 @@ const getPropertiesById = async (id) => {
       startDate: 1,
       endDate: 1,
     })
-    .populate("images", {
-
-    });
+    .populate("propertyImages", {});
   let score = 0;
   if (property.ratings !== null && property.ratings.length > 0) {
     score =
@@ -81,7 +81,9 @@ const getPropertiesById = async (id) => {
   }, []);
   // const notRepeatedDaysSet = new Set(noAvailabilityDays);
   // const notRepeatedDays = Array.from(notRepeatedDaysSet);
-  const notRepeatedDays = noAvailabilityDays.filter((date, ind) => noAvailabilityDays.indexOf(date) === ind)
+  const notRepeatedDays = noAvailabilityDays.filter(
+    (date, ind) => noAvailabilityDays.indexOf(date) === ind
+  );
 
   property.noAvailabilityDays = [];
   property.noAvailabilityDays = notRepeatedDays;

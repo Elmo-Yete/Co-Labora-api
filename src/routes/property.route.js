@@ -10,23 +10,26 @@ const {
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
 const arrayUpload = upload.any([
-  {name: "propertyImages", maxCount: 10}, 
-  {name: "propertyDocuments", maxCount: 10},
-  {name: "propertyDni", maxCount: 10}
+  { name: "propertyImages", maxCount: 10 },
+  { name: "propertyDocuments", maxCount: 10 },
+  { name: "propertyDni", maxCount: 10 },
 ]);
 
 router.post("/", auth, arrayUpload, async (req, res) => {
-  try{
-    const filesImages = req.files.filter(item => item.fieldname.startsWith('propertyImages'));
-    const filesDocs = req.files.filter(item => item.fieldname.startsWith('propertyDocuments'));
-    const filesDni = req.files.filter(item => item.fieldname.startsWith('propertyDni'));
-    const propertyImages = filesImages.map(file => file.location
+  try {
+    const filesImages = req.files.filter((item) =>
+      item.fieldname.startsWith("propertyImages")
     );
-    const propertyDocs = filesDocs.map(file => file.location
+    const filesDocs = req.files.filter((item) =>
+      item.fieldname.startsWith("propertyDocuments")
     );
-    const propertyDni = filesDni.map(file => file.location
+    const filesDni = req.files.filter((item) =>
+      item.fieldname.startsWith("propertyDni")
     );
-    const data = JSON.parse(req.body.data)
+    const propertyImages = filesImages.map((file) => file.location);
+    const propertyDocs = filesDocs.map((file) => file.location);
+    const propertyDni = filesDni.map((file) => file.location);
+    const data = JSON.parse(req.body.data);
     data.propertyImages = propertyImages;
     data.documentsImages = propertyDocs;
     data.dniImage = propertyDni;
@@ -45,7 +48,7 @@ router.post("/", auth, arrayUpload, async (req, res) => {
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const reservation = await getPropertiesById(req.params.id);
     res.status(200);
