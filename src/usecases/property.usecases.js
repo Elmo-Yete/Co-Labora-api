@@ -3,12 +3,12 @@ const Property = require("../models/property.model");
 const { getUserById } = require("./user.usecase");
 
 const createProperty = async (data) => {
+  console.log(data);
   const user = await getUserById(data.userId);
-  console.log("este es el usuario que baja", user);
+  console.log("este es el usuario en usecase", user);
   const area =
     parseInt(data.measurements.long) * parseInt(data.measurements.width);
   data.measurements.area = area;
-  console.log("data", data);
   const property = await Property.create(data);
   user.properties.push(property);
   user.save();
