@@ -5,9 +5,9 @@ const {
   getUsers,
   patchUser,
   deleteUser,
-  getUserById
+  getUserById,
 } = require("../usecases/user.usecase");
-const auth = require("../middlewares/auth.middleware")
+const auth = require("../middlewares/auth.middleware");
 
 router.post("/", async (req, res) => {
   try {
@@ -44,7 +44,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.get("/:id", auth, async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
     const users = await getUserById(id);
     res.status(200);
@@ -80,14 +80,15 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-router.patch("/:id", auth, async (req, res) => {
+router.patch("/", auth, async (req, res) => {
+  console.log("este es el body de la request", req.body);
   try {
-    const user = await patchUser(req);
+    const user = await patchUser(req.body);
     res.status(200);
     res.json({
       success: true,
       message: "User updated successfully",
-      data: user
+      data: user.description,
     });
   } catch (err) {
     res.status(err.status || 500);
