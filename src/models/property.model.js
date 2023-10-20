@@ -19,32 +19,24 @@ const propertySchema = new mongoose.Schema({
     },
     street: {
       type: String,
-      maxlength: 100,
-      minlength: 5,
       required: true,
     },
     neighbor: {
       type: String,
       maxlength: 100,
-      minlength: 5,
-      required: true,
-    },
-    number: {
-      type: Number,
-      maxlength: 10,
       minlength: 1,
       required: true,
     },
+    number: {
+      type: String,
+      required: true,
+    },
     zip: {
-      type: Number,
-      maxlength: 6,
-      minlength: 6,
+      type: String,
       required: true,
     },
     city: {
       type: String,
-      maxlength: 20,
-      minlength: 3,
       required: true,
     },
     mapCoordinates: {
@@ -127,7 +119,7 @@ const propertySchema = new mongoose.Schema({
     type: Number,
   },
   price: {
-    type: Number,
+    type: String,
     min: 1,
     max: 100000,
     required: true,
