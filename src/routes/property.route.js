@@ -9,13 +9,22 @@ const {
 } = require("../usecases/property.usecases");
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
+<<<<<<< HEAD
 const arrayUpload = upload.fields([
   { name: "property-images", maxCount: 10 },
   { name: "property-documents", maxCount: 10 },
   { name: "property-dni", maxCount: 10 },
+=======
+const arrayUpload = upload.any([
+  {name: "propertyImages", maxCount: 10}, 
+  {name: "propertyDocuments", maxCount: 10},
+  {name: "propertyDni", maxCount: 10}
+>>>>>>> develop
 ]);
+const test = upload.any("propertyDni")
 
 router.post("/", auth, arrayUpload, async (req, res) => {
+<<<<<<< HEAD
   try {
     const filesImages = req.files["property-images"];
     const filesDocs = req.files["property-documents"];
@@ -71,10 +80,27 @@ router.post("/", auth, arrayUpload, async (req, res) => {
     };
     console.log("property", propertyData);
     const user = await createProperty(propertyData);
+=======
+  try{
+    const filesImages = req.files.filter(item => item.fieldname.startsWith('propertyImages'));
+    const filesDocs = req.files.filter(item => item.fieldname.startsWith('propertyDocuments'));
+    const filesDni = req.files.filter(item => item.fieldname.startsWith('propertyDni'));
+    const propertyImages = filesImages.map(file => file.location
+    );
+    const propertyDocs = filesDocs.map(file => file.location
+    );
+    const propertyDni = filesDni.map(file => file.location
+    );
+    const data = JSON.parse(req.body.data)
+    data.propertyImages = propertyImages;
+    data.documentsImages = propertyDocs;
+    data.dniImage = propertyDni;
+    const property = await createProperty(data);
+>>>>>>> develop
     res.status(201);
     res.json({
       success: true,
-      data: user,
+      data: property,
     });
   } catch (err) {
     res.status(err.status || 500);
