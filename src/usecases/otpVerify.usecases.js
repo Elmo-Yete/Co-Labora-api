@@ -35,11 +35,11 @@ const create = async (data) => {
 
 const validate = async (data) => {
   const { id, input } = data;
-  console.log("esto deberia de ser el input del user y su id", id, input);
+
   const user = await User.findById(id);
-  console.log("este es el usuario traigo", user);
+
   const decoded = jwt.verify(user.otp, "colabora");
-  console.log("estos son los 4 digitos decompuestos", decoded);
+
   if (decoded.digits === input) {
     const account = await stripe.accounts.create({
       type: "custom",
@@ -51,7 +51,7 @@ const validate = async (data) => {
         transfers: { requested: true },
       },
     });
-    console.log("esto es lo que me regresa stripe", account);
+
     user.stripe_id = account.id;
     user.verified = true;
     user.save();
