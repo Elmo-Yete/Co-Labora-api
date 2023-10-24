@@ -82,7 +82,6 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 router.patch("/", auth, async (req, res) => {
-  console.log("este es el body de la request", req.body);
   try {
     const user = await patchUser(req.body);
     res.status(200);

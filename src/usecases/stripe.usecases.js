@@ -44,7 +44,6 @@ const onBoard = async (id) => {
   console.log("esto es el id del usuario", id);
   try {
     const user = await User.findById(id);
-    console.log("este es el usuario que trae en base al id", user);
     const link = await stripe.accountLinks.create({
       account: user.stripe_id,
       refresh_url: "http://localhost:3000/",

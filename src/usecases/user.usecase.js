@@ -10,7 +10,6 @@ const login = async (email, textPassword) => {
   if (!isValidPassword) throw createError(401, "Invalid data");
   const payload = { email: user.email, id: user._id };
   const token = jwt.sign(payload, "colabora");
-  console.log("esto es el token firmado", token);
   return token;
 };
 
