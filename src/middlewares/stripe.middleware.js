@@ -15,7 +15,7 @@ const create = async (req, res, next) => {
     });
     return account;
   } catch (error) {
-    console.log("error al crear cuenta", error.message);
+    return error;
   }
 };
 

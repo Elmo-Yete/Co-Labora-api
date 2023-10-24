@@ -44,6 +44,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.get("/:id", auth, async (req, res) => {
+  console.log("esta es la req", req.params);
   const id = req.params.id;
   try {
     const users = await getUserById(id);

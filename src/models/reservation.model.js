@@ -39,32 +39,6 @@ const reservationSchema = Schema({
     type: String,
     require: true,
   },
-  addOns: {
-    screwdrivers: {
-      type: Boolean,
-      require: true,
-    },
-    powerExtension: {
-      type: Boolean,
-      require: true,
-    },
-    flexometer: {
-      type: Boolean,
-      require: true,
-    },
-    drill: {
-      type: Boolean,
-      require: true,
-    },
-    carpenterBrush: {
-      type: Boolean,
-      require: true,
-    },
-    woodJigSaw: {
-      type: Boolean,
-      require: true,
-    },
-  },
   subtotal: {
     type: Number,
     require: true,

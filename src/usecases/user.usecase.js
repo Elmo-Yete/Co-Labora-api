@@ -8,7 +8,9 @@ const login = async (email, textPassword) => {
   if (!user) throw createError(401, "Invalid data");
   const isValidPassword = await bcrypt.compare(textPassword, user.password);
   if (!isValidPassword) throw createError(401, "Invalid data");
-  const token = jwt.sign({ email: user.email, id: user._id });
+  const payload = { email: user.email, id: user._id };
+  const token = jwt.sign(payload, "colabora");
+  console.log("esto es el token firmado", token);
   return token;
 };
 
@@ -35,9 +37,8 @@ const getUsers = async () => {
 };
 
 const patchUser = async (data) => {
-  console.log("esta es la data que le llega al usecase", data);
   const id = data.id;
-  const update = { description: data.description }; // Crea un objeto con la propiedad "description"
+  const update = { description: data.description };
   if (data.email) {
     const email = update.email;
     email ? delete update.email : update;
@@ -55,7 +56,6 @@ const patchUser = async (data) => {
 };
 
 const getUserById = async (id) => {
-  console.log("id", id);
   const user = await User.findById(id)
     .populate("notifications", {
       author: 1,
@@ -72,7 +72,7 @@ const getUserById = async (id) => {
       property: 1,
     })
     .populate("reservations", {});
-  console.log("user", user);
+
   return user;
 };
 
