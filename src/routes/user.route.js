@@ -44,7 +44,6 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.get("/:id", auth, async (req, res) => {
-  console.log("esta es la req", req.params);
   const id = req.params.id;
   try {
     const users = await getUserById(id);
@@ -65,7 +64,6 @@ router.get("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log("esta es la request de delete", userId);
     const users = await deleteUser(userId);
     res.status(200);
     res.json({

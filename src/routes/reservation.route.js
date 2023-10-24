@@ -60,28 +60,28 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  try{
+  try {
     const reservation = await deleteReservation(req.params.id);
     let response = {
       status: 200,
-      message: "Reservation has been deleted"
-    }
-    if(!reservation){
-      response.status = 404
-      response.message = "Reservation not found"
+      message: "Reservation has been deleted",
+    };
+    if (!reservation) {
+      response.status = 404;
+      response.message = "Reservation not found";
     }
     res.status(response.status);
     res.json({
       success: true,
-      message: response.message
-    }); 
+      message: response.message,
+    });
   } catch (err) {
     res.status(400);
     res.json({
       success: false,
       message: err.message,
-    })
+    });
   }
-})
+});
 
 module.exports = router;
