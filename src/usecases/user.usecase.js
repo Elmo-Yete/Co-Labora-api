@@ -8,8 +8,9 @@ const login = async (email, textPassword) => {
   if (!user) throw createError(401, "Invalid data");
   const isValidPassword = await bcrypt.compare(textPassword, user.password);
   if (!isValidPassword) throw createError(401, "Invalid data");
-  const token = jwt.sign({ email: user.email, id: user._id });
-  console.log("este es el token que regreso", token);
+  const payload = { email: user.email, id: user._id };
+  const token = jwt.sign(payload, "colabora");
+  console.log("esto es el token firmado", token);
   return token;
 };
 
