@@ -6,6 +6,7 @@ const {
   getReservations,
   getReservationsById,
 } = require("../usecases/reservation.usecases");
+
 const auth = require("../middlewares/auth.middleware");
 
 router.post("/", auth, async (req, res) => {
