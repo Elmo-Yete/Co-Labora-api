@@ -3,11 +3,11 @@ require("dotenv").config();
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const Stripe = require("stripe");
+const sgMail = require("@sendgrid/mail");
 const stripe = new Stripe(process.env.STRIPE_KEY);
 const create = async (data) => {
   console.log(data);
   try {
-    const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     const msg = {
