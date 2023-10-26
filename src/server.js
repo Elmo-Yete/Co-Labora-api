@@ -12,6 +12,7 @@ const routerVerify = require("./routes/otp.route");
 const routerComments = require("./routes/comments.route");
 const routerImages = require("./routes/images.route");
 const routerFavorites = require("./routes/favorites.route");
+const routerEmail = require("./routes/emails.route");
 const cors = require("cors");
 
 const app = express();
@@ -34,4 +35,5 @@ app.use("/rating", routerRatings);
 app.use("/comments", routerComments);
 app.use("/images", routerImages);
 app.use("/favorites", routerFavorites);
+app.use("/email", routerEmail);
 module.exports = app;

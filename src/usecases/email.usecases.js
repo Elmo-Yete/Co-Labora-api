@@ -18,9 +18,9 @@ const sendMails = async (data) => {
     text: "Este es un correo con la información de tu reserva",
     html: `
     <p>Esta es tu confirmacion de tu reservacion</p>
-    <strong>Inicio de tu reserva${start}</strong>
-    <strong>Fin de tu reserva${end}</strong>
-    <strong>Cobro total${total}</strong>
+    <strong>Inicio de tu reserva ${start}</strong>
+    <strong>Fin de tu reserva ${end}</strong>
+    <strong>Cobro total:$ ${total}</strong>
     `,
   };
 
@@ -40,4 +40,15 @@ const sendMails = async (data) => {
   // Envío de correos electrónicos
   await sgMail.send([tenantMsg, ownerMsg]);
 };
-module.exports = { sendMails };
+
+const sendOneMail = async (data) => {
+  const ownerMsg = {
+    to: "colabora4@gmail.com",
+    from: `${data.email}`,
+    subject: `${data.asunto}`,
+    text: `${data.mensaje}`,
+  };
+  await sgMail.send(ownerMsg);
+};
+
+module.exports = { sendMails, sendOneMail };
