@@ -4,6 +4,7 @@ const {
   createProperty,
   deleteProperty,
   getProperties,
+  getPropertiesById,
   getPropertiesByUserId,
   patchProperty,
 } = require("../usecases/property.usecases");
@@ -50,7 +51,7 @@ router.post("/", auth, arrayUpload, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const reservation = await getPropertiesByUserId(req.params.id);
+    const reservation = await getPropertiesById(req.params.id);
     res.status(200);
     res.json({
       success: true,
@@ -121,6 +122,23 @@ router.patch("/:id", auth, async (req, res) => {
     res.json({
       success: false,
       message: err.message,
+    });
+  }
+});
+
+router.get("/user/:id", async (req, res) => {
+  try {
+    const reservation = await getPropertiesByUserId(req.params.id);
+    res.status(200);
+    res.json({
+      success: true,
+      data: reservation,
+    });
+  } catch (err) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: "Property has been not found",
     });
   }
 });
