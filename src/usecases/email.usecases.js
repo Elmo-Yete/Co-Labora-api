@@ -44,7 +44,7 @@ const sendMails = async (data) => {
 const sendOneMail = async (data) => {
   const ownerMsg = {
     to: "colabora4@gmail.com",
-    from: `${data.email}`,
+    from: data.email,
     subject: `${data.asunto}`,
     text: `${data.mensaje}`,
   };
