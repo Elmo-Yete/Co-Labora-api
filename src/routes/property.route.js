@@ -4,7 +4,7 @@ const {
   createProperty,
   deleteProperty,
   getProperties,
-  getPropertiesById,
+  getPropertiesByUserId,
   patchProperty,
 } = require("../usecases/property.usecases");
 const auth = require("../middlewares/auth.middleware");
@@ -50,7 +50,7 @@ router.post("/", auth, arrayUpload, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const reservation = await getPropertiesById(req.params.id);
+    const reservation = await getPropertiesByUserId(req.params.id);
     res.status(200);
     res.json({
       success: true,

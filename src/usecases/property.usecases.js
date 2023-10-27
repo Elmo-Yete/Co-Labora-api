@@ -39,54 +39,81 @@ const getProperties = async () => {
   return propertiesAndScore;
 };
 
-const getPropertiesById = async (id) => {
-  const property = await Property.findById(id)
-    .populate("ratings", {
-      userId: 1,
-      rating: 1,
-    })
-    .populate("comments", {
-      userId: 1,
-      comment: 1,
-    })
-    .populate("reservations", {
-      _id: 1,
-      startDate: 1,
-      endDate: 1,
-    })
-    .populate("propertyImages", {});
-  let score = 0;
-  if (property.ratings !== null && property.ratings.length > 0) {
-    score =
-      property.ratings.reduce((acc, act) => {
-        return acc + act.rating;
-      }, 0) / property.ratings.length;
-  }
-  property.score = score.toFixed(1);
-  const noAvailabilityDays = property.reservations.reduce((acc, act) => {
-    let start = new Date(act.startDate);
-    let end = new Date(act.endDate);
+const getPropertiesByUserId = async (userId) => {
+  try {
+    // Buscar todas las propiedades que estén relacionadas con el usuario específico
+    const properties = await Property.find({ userId }).exec();
 
-    if (start === end) {
-      acc.push(start);
-    } else {
-      while (start <= end) {
-        acc.push(new Date(start).toString());
-        start.setDate(start.getDate() + 1);
+    // A continuación, puedes realizar operaciones adicionales en la lista de propiedades, como población de datos, cálculo de puntaje, etc.
+    for (let property of properties) {
+      // Realiza la población de datos de la propiedad según tus necesidades
+      // Puedes mantener el código de población existente para ratings, comments, reservations, propertyImages, score, y noAvailabilityDays aquí.
+      const populatedProperty = await Property.findById(property._id)
+        .populate("ratings", {
+          userId: 1,
+          rating: 1,
+        })
+        .populate("comments", {
+          userId: 1,
+          comment: 1,
+        })
+        .populate("reservations", {
+          _id: 1,
+          startDate: 1,
+          endDate: 1,
+        })
+        .populate("propertyImages", {})
+        .exec();
+
+      // Por ejemplo, para calcular el puntaje promedio de ratings
+      let score = 0;
+      if (
+        populatedProperty.ratings !== null &&
+        populatedProperty.ratings.length > 0
+      ) {
+        score =
+          populatedProperty.ratings.reduce((acc, act) => acc + act.rating, 0) /
+          populatedProperty.ratings.length;
       }
-    }
-    return acc;
-  }, []);
-  // const notRepeatedDaysSet = new Set(noAvailabilityDays);
-  // const notRepeatedDays = Array.from(notRepeatedDaysSet);
-  const notRepeatedDays = noAvailabilityDays.filter(
-    (date, ind) => noAvailabilityDays.indexOf(date) === ind
-  );
+      populatedProperty.score = score.toFixed(1);
 
-  property.noAvailabilityDays = [];
-  property.noAvailabilityDays = notRepeatedDays;
-  return property;
+      // Para encontrar los días no disponibles
+      const noAvailabilityDays = populatedProperty.reservations.reduce(
+        (acc, act) => {
+          let start = new Date(act.startDate);
+          let end = new Date(act.endDate);
+
+          if (start === end) {
+            acc.push(start);
+          } else {
+            while (start <= end) {
+              acc.push(new Date(start).toString());
+              start.setDate(start.getDate() + 1);
+            }
+          }
+          return acc;
+        },
+        []
+      );
+
+      const notRepeatedDays = noAvailabilityDays.filter(
+        (date, ind) => noAvailabilityDays.indexOf(date) === ind
+      );
+
+      populatedProperty.noAvailabilityDays = notRepeatedDays;
+
+      // Agregar la propiedad poblada a la lista
+      property = populatedProperty;
+    }
+
+    return properties;
+  } catch (error) {
+    // Manejo de errores
+    console.error(error);
+    throw error;
+  }
 };
+
 const deleteProperty = async (id) => {
   const propertyDeleted = await Property.findByIdAndDelete(id);
   return propertyDeleted;
@@ -105,6 +132,6 @@ module.exports = {
   createProperty,
   deleteProperty,
   getProperties,
-  getPropertiesById,
+  getPropertiesByUserId,
   patchProperty,
 };
