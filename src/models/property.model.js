@@ -85,27 +85,21 @@ const propertySchema = new mongoose.Schema({
   addOns: {
     screwdrivers: {
       type: Boolean,
-      required: true,
     },
     powerExtension: {
       type: Boolean,
-      required: true,
     },
     flexometer: {
       type: Boolean,
-      required: true,
     },
     drill: {
       type: Boolean,
-      required: true,
     },
     carpenterBrush: {
       type: Boolean,
-      required: true,
     },
     woodJigSaw: {
       type: Boolean,
-      required: true,
     },
   },
   ratings: [
