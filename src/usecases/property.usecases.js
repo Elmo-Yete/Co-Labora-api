@@ -177,6 +177,67 @@ const getPropertiesByUserId = async (userId) => {
     throw error;
   }
 };
+const filterPropertyByInput = async(filter)  => {
+  const properties = await Property.find({$or: [{name: {"$regex": filter, "$options": "i"}},{"location.street":{"$regex": filter, "$options": "i"}}, {"location.neighbor": {"$regex": filter, "$options": "i"}}, {"location.city": {"$regex": filter, "$options": "i"}}]}).populate("ratings", {
+    userId: 1,
+    rating: 1,
+  })
+  .populate("comments", {
+    userId: 1,
+    comment: 1,
+  })
+  .populate("propertyImages", {})
+  if(!properties){
+    return null;
+  }
+  return properties;
+}
+
+const filterPropertyByPreferences = async (preferences) => {
+  let data = [
+ 
+];
+
+  if (preferences.minPrice) {
+    data.push({price: { $gte: preferences.minPrice }})  ;
+  }
+
+  if (preferences.maxPrice) {
+    data.push({price: {$lte: preferences.maxPrice }});
+  }
+
+  if (preferences.rating) {
+    data.push({score: {$gte: preferences.rating}});
+  }
+
+  if (preferences.wifi) {
+     data.push({"amenities.wifi": true});
+  }
+
+  if (preferences.petFriendly) {
+     data.push({"amenities.wifi": true});
+  }
+
+  if (preferences.parking) {
+     data.push({"amenities.parking": true});                          
+  }
+
+  if (preferences.airConditioner) {
+     data.push({"amenities.airConditioner": true});
+  }
+
+  if (preferences.reception) {
+
+     data.push({"amenities.reception": true});      
+  }
+
+  if (preferences.cleanService) {
+     data.push({"amenities.cleanService": true});
+  }
+  const properties = await Property.find({$and: data});
+  return properties;
+};
+
 
 module.exports = {
   createProperty,
@@ -185,4 +246,6 @@ module.exports = {
   getPropertiesById,
   getPropertiesByUserId,
   patchProperty,
+  filterPropertyByInput,
+  filterPropertyByPreferences
 };
