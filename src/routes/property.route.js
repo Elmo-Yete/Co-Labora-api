@@ -7,6 +7,8 @@ const {
   getPropertiesById,
   getPropertiesByUserId,
   patchProperty,
+  filterPropertyByInput,
+  filterPropertyByPreferences
 } = require("../usecases/property.usecases");
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/awsS3.middleware");
@@ -48,6 +50,35 @@ router.post("/", auth, arrayUpload, async (req, res) => {
     });
   }
 });
+router.get("/filterByPreferences", async(req, res) => {
+  const filterData = req.body;
+  const response = {
+    status: 200,
+    message: "Done",
+    success: true
+  }
+  try{
+    const properties = await filterPropertyByPreferences(filterData);
+    if (properties.length <= 0){
+      response.status = 404
+      response.message = 'Not properties have been found'
+      response.success = false
+    }
+    res.status(response.status);
+    res.json({
+      success: response.success,
+      data: properties,
+      message: response.message
+    });
+  }catch(err){
+    res.status(err.status || 500);
+    res.json({
+      success: false,
+      message: err.message
+    });
+  };
+});
+
 
 router.get("/:id", async (req, res) => {
   try {
@@ -68,11 +99,11 @@ router.get("/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const reservations = await getProperties();
+    const property = await getProperties();
     res.status(200);
     res.json({
       success: true,
-      data: reservations,
+      data: property,
     });
   } catch (err) {
     res.status(err.status || 500);
@@ -142,4 +173,35 @@ router.get("/user/:id", async (req, res) => {
     });
   }
 });
+
+router.get("/filterByInput/:filter", async (req, res) => {
+  const filterData = req.params.filter;
+  const response = {
+    status: 200,
+    message: "Done",
+    success: true
+  }
+  try {
+    const properties = await filterPropertyByInput(filterData);
+    if (properties.length <= 0){
+      response.status = 404
+      response.message = 'Not properties have been found'
+      response.success = false
+    }
+    res.status(response.status);
+    res.json({
+      success: response.success,
+      data: properties,
+      message: response.message
+    });
+  } catch (err){
+    res.status(err.status || 500);
+    res.json({
+      success: false,
+      message: err.message
+    });
+  };
+});
+
+
 module.exports = router;
