@@ -55,6 +55,8 @@ const getPropertiesById = async (id) => {
       _id: 1,
       startDate: 1,
       endDate: 1,
+      tenantId: 1,
+      subtotal: 1,
     })
     .populate("propertyImages", {});
   let score = 0;

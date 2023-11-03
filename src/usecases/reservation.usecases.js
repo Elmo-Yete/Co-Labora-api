@@ -28,9 +28,21 @@ const deleteReservation = async (id) => {
   return reservationDeleted;
 };
 
+const findReservationsByPropertyId = async (propertyId) => {
+  try {
+    const reservations = await Reservation.find({
+      "property.propertyId": propertyId,
+    }).populate("tenantId", { description: 1, email: 1, name: 1 });
+    return reservations;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   createReservation,
   deleteReservation,
   getReservations,
   getReservationsById,
+  findReservationsByPropertyId,
 };
