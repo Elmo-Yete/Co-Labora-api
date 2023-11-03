@@ -45,8 +45,8 @@ const onBoard = async (id) => {
     const user = await User.findById(id);
     const link = await stripe.accountLinks.create({
       account: user.stripe_id,
-      refresh_url: "http://localhost:3000/",
-      return_url: "http://localhost:3000/",
+      refresh_url: "http://localhost:3000/your-spaces",
+      return_url: "http://localhost:3000/your-spaces",
       type: "account_onboarding",
       collect: "eventually_due",
     });

@@ -33,7 +33,7 @@ const reservationSchema = Schema({
   },
   lessorId: {
     type: Schema.Types.ObjectId,
-    ref: "reservation",
+    ref: "user",
   },
   tenantId: {
     type: String,
