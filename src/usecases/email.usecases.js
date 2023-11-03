@@ -17,10 +17,12 @@ const sendMails = async (data) => {
     subject: "Confirmación de tu reserva",
     text: "Este es un correo con la información de tu reserva",
     html: `
-    <p>Esta es tu confirmacion de tu reservacion</p>
-    <strong>Inicio de tu reserva ${start}</strong>
-    <strong>Fin de tu reserva ${end}</strong>
-    <strong>Cobro total:$ ${total}</strong>
+    <p>Esta es tu confirmación de tu reserva:</p>
+    <ul>
+      <li><strong>Inicio de tu reserva:</strong> ${start}</li>
+      <li><strong>Fin de tu reserva:</strong> ${end}</li>
+      <li><strong>Cobro total:</strong> $ ${total}</li>
+    </ul>
     `,
   };
 
@@ -31,9 +33,11 @@ const sendMails = async (data) => {
     subject: "Reserva realizada en tu espacio",
     text: "Has recibido una nueva reserva en tu espacio",
     html: `
-    <p>Un inquilino ha realizado una reserva en tu espacio. Por favor, verifica los detalles.</p>
-    <strong>Inicio de la reserva${start}</strong>
-    <strong>Fin de la reserva${end}</strong>
+    <p>Has recibido una nueva reserva en tu espacio. Por favor, verifica los detalles:</p>
+    <ul>
+      <li><strong>Inicio de la reserva:</strong> ${start}</li>
+      <li><strong>Fin de la reserva:</strong> ${end}</li>
+    </ul>
     `,
   };
 

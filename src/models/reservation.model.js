@@ -36,8 +36,8 @@ const reservationSchema = Schema({
     ref: "user",
   },
   tenantId: {
-    type: String,
-    require: true,
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
   subtotal: {
     type: Number,
