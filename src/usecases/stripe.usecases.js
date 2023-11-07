@@ -1,9 +1,10 @@
 const Stripe = require("stripe");
 const stripe = new Stripe(process.env.STRIPE_KEY);
 const User = require("../models/user.model");
+
 const payment = async (data) => {
   try {
-    const { id, amount } = data;
+    const { id, amount, acc, subtotal } = data;
     const payment = await stripe.paymentIntents.create({
       amount: amount,
       currency: "mxn",
@@ -16,7 +17,16 @@ const payment = async (data) => {
         allow_redirects: "never",
       },
     });
-    return payment;
+    const transfer = await stripe.transfers.create({
+      amount: subtotal,
+      currency: "mxn",
+      destination: acc,
+      transfer_group: payment.id, // Asegúrate de que la transferencia esté relacionada con el pago
+    });
+    return {
+      payment,
+      transfer,
+    };
   } catch (error) {
     console.log("error en el usecase", error);
   }

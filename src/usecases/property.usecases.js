@@ -58,7 +58,9 @@ const getPropertiesById = async (id) => {
       tenantId: 1,
       subtotal: 1,
     })
-    .populate("propertyImages", {});
+    .populate("propertyImages", {})
+    .populate("userId", {})
+    .exec();
   let score = 0;
   if (property.ratings !== null && property.ratings.length > 0) {
     score =
@@ -81,8 +83,6 @@ const getPropertiesById = async (id) => {
     }
     return acc;
   }, []);
-  // const notRepeatedDaysSet = new Set(noAvailabilityDays);
-  // const notRepeatedDays = Array.from(notRepeatedDaysSet);
   const notRepeatedDays = noAvailabilityDays.filter(
     (date, ind) => noAvailabilityDays.indexOf(date) === ind
   );
@@ -91,6 +91,7 @@ const getPropertiesById = async (id) => {
   property.noAvailabilityDays = notRepeatedDays;
   return property;
 };
+
 const deleteProperty = async (id) => {
   const propertyDeleted = await Property.findByIdAndDelete(id);
   return propertyDeleted;
