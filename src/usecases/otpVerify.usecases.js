@@ -10,12 +10,14 @@ const create = async (data) => {
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    // d-f0fe0b3649a34d8dbbd460392aca3eba
     const msg = {
       to: `${data.email}`,
-      from: "colabora4@gmail.com",
-      subject: "Codigo de verificacion de cuenta",
-      text: "Por favor ingresa este codigo en la pagina para verificar tu cuenta",
-      html: `<p>Ingresa este codigo en la pagina para verificar tu correo</p><strong>${otp}</strong>`,
+      from: { name: "Co-Labora", email: "colabora4@gmail.com" },
+      templateId: "d-f0fe0b3649a34d8dbbd460392aca3eba",
+      dynamicTemplateData: {
+        otp: otp,
+      },
     };
     await sgMail.send(msg);
     console.log("Email sent", otp);

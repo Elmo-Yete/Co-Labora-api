@@ -6,11 +6,12 @@ const sendMails = async (data) => {
   console.log("si esta llegando a enviar los correor");
   const tenant = await getUserById(data.tenantId);
   const owner = await getUserById(data.lessorId);
-  console.log("esto es tenant", tenant, "esto es owner", owner);
   console.log("esto es data", data);
   const start = data.startDate;
   const end = data.endDate;
   const total = data.total;
+  const subto = data.subtotal;
+  const property = data.property.propertyName;
   // Información del correo para el i   nquilino
   const tenantMsg = {
     to: `${tenant.email}`,
@@ -20,6 +21,7 @@ const sendMails = async (data) => {
     html: `
     <p>Esta es tu confirmación de tu reserva:</p>
     <ul>
+      <li><strong>Nombre del inmueble:</strong> ${property}</li>
       <li><strong>Inicio de tu reserva:</strong> ${start}</li>
       <li><strong>Fin de tu reserva:</strong> ${end}</li>
       <li><strong>Cobro total:</strong> $ ${total}</li>
@@ -36,8 +38,10 @@ const sendMails = async (data) => {
     html: `
     <p>Has recibido una nueva reserva en tu espacio. Por favor, verifica los detalles:</p>
     <ul>
+    <li><strong>Nombre del inmueble:</strong> ${property}</li>
       <li><strong>Inicio de la reserva:</strong> ${start}</li>
       <li><strong>Fin de la reserva:</strong> ${end}</li>
+      <li><strong>Pago correspondiente:</strong> $${subto}</li>
     </ul>
     `,
   };
