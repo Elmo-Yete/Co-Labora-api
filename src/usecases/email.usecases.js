@@ -15,35 +15,27 @@ const sendMails = async (data) => {
   // Información del correo para el i   nquilino
   const tenantMsg = {
     to: `${tenant.email}`,
-    from: "colabora4@gmail.com",
-    subject: "Confirmación de tu reserva",
-    text: "Este es un correo con la información de tu reserva",
-    html: `
-    <p>Esta es tu confirmación de tu reserva:</p>
-    <ul>
-      <li><strong>Nombre del inmueble:</strong> ${property}</li>
-      <li><strong>Inicio de tu reserva:</strong> ${start}</li>
-      <li><strong>Fin de tu reserva:</strong> ${end}</li>
-      <li><strong>Cobro total:</strong> $ ${total}</li>
-    </ul>
-    `,
+    from: { name: "Co-Labora", email: "colabora4@gmail.com" },
+    templateId: "d-79fa637eeeb24715843b7e6400fe97e0",
+    dynamicTemplateData: {
+      property: property,
+      start: start,
+      end: end,
+      total: total,
+    },
   };
 
   // Información del correo para el propietario
   const ownerMsg = {
     to: `${owner.email}`,
-    from: "colabora4@gmail.com",
-    subject: "Reserva realizada en tu espacio",
-    text: "Has recibido una nueva reserva en tu espacio",
-    html: `
-    <p>Has recibido una nueva reserva en tu espacio. Por favor, verifica los detalles:</p>
-    <ul>
-    <li><strong>Nombre del inmueble:</strong> ${property}</li>
-      <li><strong>Inicio de la reserva:</strong> ${start}</li>
-      <li><strong>Fin de la reserva:</strong> ${end}</li>
-      <li><strong>Pago correspondiente:</strong> $${subto}</li>
-    </ul>
-    `,
+    from: { name: "Co-Labora", email: "colabora4@gmail.com" },
+    templateId: "d-24f407394e8543bab54c83c2558b8faa",
+    dynamicTemplateData: {
+      property: property,
+      start: start,
+      end: end,
+      subto: subto,
+    },
   };
 
   // Envío de correos electrónicos
