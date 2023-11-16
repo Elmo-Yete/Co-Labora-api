@@ -55,8 +55,8 @@ const onBoard = async (id) => {
     const user = await User.findById(id);
     const link = await stripe.accountLinks.create({
       account: user.stripe_id,
-      refresh_url: "https://xss.integral-telecom.com/your-spaces",
-      return_url: "https://xss.integral-telecom.com/your-spaces",
+      refresh_url: 'https://www.co-laboramx.com/your-spaces';
+      return_url: 'https://www.co-laboramx.com/your-spaces';
       type: "account_onboarding",
       collect: "eventually_due",
     });
