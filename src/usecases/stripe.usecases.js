@@ -4,13 +4,14 @@ const User = require("../models/user.model");
 
 const payment = async (data) => {
   try {
-    const { id, amount, acc, subtotal } = data;
+    const { id, amount, acc, subtotal, email } = data;
     const payment = await stripe.paymentIntents.create({
       amount: amount,
       currency: "mxn",
       payment_method: id,
       description: `Reservacion hecha, id del pago ${id}`,
       confirm: true,
+      receipt_email: email,
       automatic_payment_methods: { enabled: true },
       automatic_payment_methods: {
         enabled: true,
