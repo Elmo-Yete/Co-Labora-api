@@ -28,7 +28,6 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.get("/:id", auth, async (req, res) => {
-  console.log("jaja pendjo esta aca");
   try {
     const reservation = await getReservationsById(req.params.id);
     res.status(200);
@@ -89,7 +88,6 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.get("/pr/:propertyId", auth, async (req, res) => {
   try {
-    console.log("esta es la req", req.params);
     const propertyId = req.params.propertyId;
     const reservations = await findReservationsByPropertyId(propertyId);
     res.status(200);

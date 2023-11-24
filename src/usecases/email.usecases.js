@@ -3,10 +3,8 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const { getUserById } = require("./user.usecase");
 
 const sendMails = async (data) => {
-  console.log("si esta llegando a enviar los correor");
   const tenant = await getUserById(data.tenantId);
   const owner = await getUserById(data.lessorId);
-  console.log("esto es data", data);
   const start = data.startDate;
   const end = data.endDate;
   const total = data.total;

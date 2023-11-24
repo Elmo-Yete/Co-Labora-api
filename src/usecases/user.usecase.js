@@ -15,7 +15,6 @@ const login = async (email, textPassword) => {
     name: user.name,
   };
   const token = jwt.sign(payload, "colabora");
-  console.log("esto regreso en el token", token);
   return token;
 };
 

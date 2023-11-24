@@ -6,7 +6,6 @@ const Stripe = require("stripe");
 const sgMail = require("@sendgrid/mail");
 const stripe = new Stripe(process.env.STRIPE_KEY);
 const create = async (data) => {
-  console.log(data);
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
@@ -20,7 +19,6 @@ const create = async (data) => {
       },
     };
     await sgMail.send(msg);
-    console.log("Email sent", otp);
     const ver = jwt.sign({ digits: otp }, "colabora");
     const hashedPassword = await bcrypt.hash(data.password, 10);
     data.password = hashedPassword;
@@ -30,7 +28,6 @@ const create = async (data) => {
 
     return register._id;
   } catch (error) {
-    console.log("error en el usecase", error.message);
     return false;
   }
 };

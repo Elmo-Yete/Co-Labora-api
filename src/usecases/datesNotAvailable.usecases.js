@@ -1,7 +1,6 @@
 const Availability = require("../models/datesNotAvailable.model");
 
 const create = async (data) => {
-  console.log("data", data)
   const dates = Availability.create(data);
   return dates;
 };
