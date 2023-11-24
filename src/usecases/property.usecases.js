@@ -72,11 +72,14 @@ const getPropertiesById = async (id) => {
     console.log({startFormat})
     const startInverted =  startFormat[1] + '-' + startFormat[0] + '-' + startFormat[2]
     console.log({startInverted})
-    const endFormat = act.endtDate.split('-')
+    const endFormat = act.endDate.split('-')
     const endInverted =  endFormat[1] + '-' + endFormat[0] + '-' + endFormat[2]
     
     let start = new Date(startInverted);
     let end = new Date(endInverted);
+
+    console.log({start})
+    console.log({end})
 
     if (start === end) {
       acc.push(start);
