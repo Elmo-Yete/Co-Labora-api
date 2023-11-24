@@ -68,8 +68,15 @@ const getPropertiesById = async (id) => {
   }
   property.score = score.toFixed(1);
   const noAvailabilityDays = property.reservations.reduce((acc, act) => {
-    let start = new Date(act.startDate);
-    let end = new Date(act.endDate);
+    const startFormat = act.startDate.split('-')
+    console.log({startFormat})
+    const startInverted =  startFormat[1] + '-' + startFormat[0] + '-' + startFormat[2]
+    console.log({startInverted})
+    const endFormat = act.endtDate.split('-')
+    const endInverted =  endFormat[1] + '-' + endFormat[0] + '-' + endFormat[2]
+    
+    let start = new Date(startInverted);
+    let end = new Date(endInverted);
 
     if (start === end) {
       acc.push(start);
