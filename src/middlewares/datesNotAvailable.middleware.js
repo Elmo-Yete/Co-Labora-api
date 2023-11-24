@@ -9,7 +9,6 @@ const dates = (req, res, next) => {
   const intermediateDates = [];
 
   if (start === end) {
-    console.log("deberia", start);
     intermediateDates.push(start);
   } else {
     while (start <= end) {

@@ -27,7 +27,6 @@ router.post("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const account = await create();
-    console.log(res);
     res.status(200);
     res.json({
       succes: true,

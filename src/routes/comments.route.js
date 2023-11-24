@@ -6,7 +6,6 @@ const auth = require("../middlewares/auth.middleware")
 router.post("/", auth, async (req, res) => {
   try{
     const comment = await createComment(req.body);
-    console.log("coment", comment)
     res.status(201);
     res.json({
       success: true,

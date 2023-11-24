@@ -27,7 +27,6 @@ router.post("/", async (req, res) => {
 router.post("/validate", async (req, res) => {
   try {
     const verified = await validate(req.body);
-    console.log("esto es verified en la ruta", verified);
     if (verified) {
       res.status(200);
       res.json({
@@ -40,7 +39,6 @@ router.post("/validate", async (req, res) => {
         success: false,
         message: "Error al verificar los 4 digitos",
       });
-      console.log("error en la ruta sin verificar");
     }
   } catch (error) {
     res.status(400);
@@ -48,7 +46,6 @@ router.post("/validate", async (req, res) => {
       success: false,
       message: "Error al verificar los 4 digitos",
     });
-    console.log("error de ruta", error);
   }
 });
 
